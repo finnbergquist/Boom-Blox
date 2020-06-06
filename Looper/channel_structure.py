@@ -1,7 +1,7 @@
 class channels:
     """multidimensional array representing channels and steps"""
 
-    audio_file_struct = [[4, 0, 4, 0, 4, 0, 0, 5], [3, 0, 0, 0, 0, 0, 0, 0]]
+    audio_file_struct = [[5, 0, 5, 0, 5, 0, 5, 0], [3, 0, 0, 0, 3, 0, 0, 0]]
 
     def __init__(self, tempo,num_channels,num_steps):
         self.tempo = tempo #none of these are really implemented yet
@@ -15,6 +15,9 @@ class channels:
         the values yielded by node resistor inputs
         """
         return
+
+    def set_audio_num(self, x, y, val):
+        self.audio_file_struct[x][y] = val
 
     def get_audio_num(self, x, y):
         """simple getter method"""
