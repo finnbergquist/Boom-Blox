@@ -11,11 +11,11 @@ class mix:
     
     #sounds dictionary
     sounds = {
-        "000" : pygame.mixer.Sound("Audio_Files/Track1.wav"),
         "001" : pygame.mixer.Sound("Audio_Files/Track2.wav"),
         "010" : pygame.mixer.Sound("Audio_Files/drums.wav"),
         "100" : pygame.mixer.Sound("Audio_Files/Track3.wav"),
-        "002" : pygame.mixer.Sound("Audio_Files/2_SECOND_PIANO.wav")
+        "002" : pygame.mixer.Sound("Audio_Files/2_SECOND_PIANO.wav"),
+        "020" : pygame.mixer.Sound("Audio_Files/Track1.wav")
     }
 
     def play(self, sound_code, channel_number):
@@ -27,9 +27,11 @@ class mix:
         if (code in self.sounds):#there is no audio file in this position, so do nothing
             print("sound not in dictionary")
         else:#play specified sound in specified channel
-            # print(type(code))
-            # print(self.sounds.get(code))
-            self.channels[channel_number].play(self.sounds[sound_code])
+            if sound_code == "000":#don't play any sound
+                print("blank sound")
+                return
+            else:
+                self.channels[channel_number].play(self.sounds[sound_code])#play that mf Sound!!
             
     
     def update_channel_volume(self, channel_number, volume):
