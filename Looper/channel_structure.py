@@ -7,7 +7,6 @@ class channels:
         self.tempo = tempo #none of these are really implemented yet
         self.num_channels = num_channels
         self.num_steps = num_steps
-        
 
 
     def scan_tracks(self):
