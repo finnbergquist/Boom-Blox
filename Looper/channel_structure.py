@@ -1,13 +1,12 @@
 class channels:
     """multidimensional array representing channels and steps"""
 
-    audio_file_struct = [[5, 0, 5, 0, 5, 0, 5, 0], [3, 0, 0, 0, 3, 0, 0, 0]]
+    audio_file_struct = [["002", "000", "002", "000", "002", "002", "002", "002"], ["000", "000", "000", "000", "000", "000", "000", "000"]]
 
     def __init__(self, tempo,num_channels,num_steps):
         self.tempo = tempo #none of these are really implemented yet
         self.num_channels = num_channels
         self.num_steps = num_steps
-        
 
 
     def scan_tracks(self):
