@@ -7,8 +7,9 @@ class mix:
     pygame.mixer.init()                      #2-->stereo sound, 512=buffersize
     pygame.init()
     
-    #initialize channels in the mixer
-    channels = [pygame.mixer.Channel(0), pygame.mixer.Channel(1)]
+    #initialize channels in the mixer, with four channels
+    channels = [pygame.mixer.Channel(0), pygame.mixer.Channel(1),
+                pygame.mixer.Channel(2), pygame.mixer.Channel(3)]
     
     #sounds dictionary
     # Accessing sounds: 
@@ -20,11 +21,16 @@ class mix:
 #     these codes that will inform the Raspi which .wav to play.
 
     sounds = {
-        "001" : pygame.mixer.Sound("Audio_Files/Choir.wav"),
-        "010" : pygame.mixer.Sound("Audio_Files/drums.wav"),
-        "100" : pygame.mixer.Sound("Audio_Files/Track3.wav"),
-        "002" : pygame.mixer.Sound("Audio_Files/2_SECOND_PIANO.wav"),
-        "020" : pygame.mixer.Sound("Audio_Files/Track1.wav")
+        "001" : pygame.mixer.Sound("Looper/Audio_Files/Choir.wav"),
+        "010" : pygame.mixer.Sound("Looper/Audio_Files/drums.wav"),
+        "100" : pygame.mixer.Sound("Looper/Audio_Files/Track3.wav"),
+        "002" : pygame.mixer.Sound("Looper/Audio_Files/2_SECOND_PIANO.wav"),
+        "020" : pygame.mixer.Sound("Looper/Audio_Files/Track1.wav"),
+        "200" : pygame.mixer.Sound("Looper/Audio_Files/techno.wav"),
+        "300" : pygame.mixer.Sound("Looper/Audio_Files/keys.wav"),
+        "030" : pygame.mixer.Sound("Looper/Audio_Files/highs.wav"),
+        "003" : pygame.mixer.Sound("Looper/Audio_Files/sax.wav"),
+        
     }
 
     #this play should be used in looper lounge

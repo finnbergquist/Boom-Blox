@@ -37,13 +37,14 @@ void loop() {
   MIDI = analogRead(MIDIpin);
   effect = analogRead(effectPin);
   inst = analogRead(instPin);
-  delay(500);
+  
   
   //if there is a difference then update the Serial
-  if (difVals(last_MIDI, MIDI) || difVals(last_effect, effect) || difVals(last_inst, inst)) {
+//  if (difVals(last_MIDI, MIDI) || difVals(last_effect, effect) || difVals(last_inst, inst)) {
     String divider = ":";
-    Serial.print(MIDI + divider + effect + divider + inst);
-  }
+  Serial.print(MIDI + divider + effect + divider + inst + divider);
+  delay(250);
+  
 
   
 }

@@ -5,6 +5,31 @@ import serial
 from looper import Looper
 from sound_files import mix
 
+# set up the serial line
+port = '/dev/cu.usbmodem143101'
+ser = serial.Serial(port, 9600, timeout=0.1)
+time.sleep(2)
+
+def check_serial(ser):
+    # Read input from Arduino, 777 is the error code
+    output = "777"
+    
+    data = ser.readline()         # read a byte string
+    n = data.decode()  # decode byte string into Unicode
+    string = n.rstrip() # remove \n and \r
+    #print(string)
+    # if its an empty string 
+    if not string:
+        return "777"
+    else:
+        #get the resistor value, make it an int, sort it and then 
+        #turn it back into a string
+        MIDI = str(sort(int(n.split(':')[0]), 10))
+        effect = str(sort(int(n.split(':')[1]), 10))
+        inst = str(sort(int(n.split(':')[2]), 10))
+        #make 3-digit code
+        output = MIDI+effect+inst      
+        return output
 
 ##MIGHT NOT NEED WITH LOOPER METHOD
 # # Set the channel and step clip 
@@ -29,9 +54,25 @@ def start_loop(instr):
     # mixer.update_channel_volume(0, pot0.value)#setup the channel volumes before audio playback
     # mixer.update_channel_volume(1, pot1.value)
     while True:#audio loop
-        play_region(instr, 0)
+        #check the arduino for new information
+        output = check_serial(ser)
+        #print(output)
+        # print(output[0] == '1')
+        # play_region(instr, 0)
+        #TEMPORARY
+        if (output[0] == '1'):
+            play_region(instr, 0)
+        if (output[1] == '2'):
+            play_region(instr, 1)
+        if (output[2] == '3'):
+            play_region(instr, 2)
+
+        time.sleep(8)
         #Sleep for however long the audio is 
-        time.sleep(1)
+        # time.sleep(4)
+        # output = check_serial(ser)
+        # print(output)
+        # time.sleep(4)
         # if time.time() >= next_time:
         #     play_region(instr, 0)
         #     next_time += 1
@@ -41,7 +82,7 @@ def sort(input, threshold):
     #if its around 40 its 1, 100 its 2, 180 its 3, it its 0, then be default
     if (abs(input - 0) < threshold):
         return 0
-    elif (abs(input - 40) < threshold):
+    elif (abs(input - 512) < threshold):
         return 1
     elif (abs(input - 100) < threshold):
         return 2
@@ -51,44 +92,21 @@ def sort(input, threshold):
         return "error: can't identify node"
 
 
-"""
-# set up the serial line
-port = '/dev/cu.usbmodem143101'
-ser = serial.Serial(port, 9600, timeout=0.1)
-time.sleep(2)
 
-# Read input from Arduino
-while True:
-    #initialize output as 000
-    output = "000"
-    data = ser.readline()         # read a byte string
-    n = data.decode()  # decode byte string into Unicode
-    string = n.rstrip() # remove \n and \r
-    # if it is a string we care about
-    if (":" in string):
-        #get the resistor value, make it an int, sort it and then 
-        #turn it back into a string
-        MIDI = str(sort(int(n.split(':')[0]), 10))
-        effect = str(sort(int(n.split(':')[1]), 10))
-        inst = str(sort(int(n.split(':')[2]), 10))
-        #make 3-digit code
-        output = MIDI+effect+inst
-        
-    print(output)
-    
-"""
 
-    #RUN AUDIO LOOP
 while True:
     #settig up channel data
     TEMPO = 5
-    CHANNELS = 1
+    #how many instruments
+    CHANNELS = 3
    
     looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
     # sequencer.scan_tracks#not implemented yet
     #output = '001'
     # Set first instrument
-    looper.set_loop(CHANNELS, '001')
+    looper.set_loop(1, '030')
+    looper.set_loop(2, '200')
+    looper.set_loop(3, '003')
 
     #setting up mixer
     mixer = mix()
