@@ -43,7 +43,7 @@ class mix:
 
     #this play method should used in the step sequencer
     def play_step(self, sound_code, channel_number): 
-            """Play arg1 sound in arg2 channel           
+            """Play sound_code sound in channel_number channel           
             ex) mix.play(1, 0) will play sound 1 in channel 0"""
             #make code readable by dict
             
