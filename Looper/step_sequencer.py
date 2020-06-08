@@ -4,6 +4,8 @@ import time
 from channel_structure import channels
 from sound_files import mix
 import time
+import sys
+import signal
 
 
 """The step_sequencer class holds all the information about the sequencer region of this device.
@@ -17,12 +19,12 @@ class step_sequencer:
         self.channel_structure = channels(120, 2, 8)#2 channels, 8 steps
     
 
-    def play_region(self, region_number):
+    def play_region(self, step):
         """helper method for step_sequencer_loop"""
-        self.mixer.play(self.channel_structure.get_audio_num(0, region_number), 0)
-        self.mixer.play(self.channel_structure.get_audio_num(1, region_number), 1)
-        print(self.channel_structure.get_audio_num(0, region_number))
-        print(self.channel_structure.get_audio_num(1, region_number))
+        self.mixer.play_step(self.channel_structure.get_audio_num(0, step), 0)
+        self.mixer.play_step(self.channel_structure.get_audio_num(1, step), 1)
+        print(self.channel_structure.get_audio_num(0, step))
+        print(self.channel_structure.get_audio_num(1, step))
 
 
 
@@ -46,7 +48,13 @@ class step_sequencer:
 
 
 
+def signal_handler(self, frame):
+    mixer.cleanup()
+    print("mixer cleaned up")
+    print(sys.exit())
 
+
+signal.signal(signal.SIGINT, signal_handler)
 mixer = mix()
 stepSequencer = step_sequencer(mixer)
 stepSequencer.step_sequencer_loop()

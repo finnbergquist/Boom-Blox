@@ -1,7 +1,9 @@
 class channels:
     """multidimensional array representing channels and steps"""
 
-    audio_file_struct = [["002", "000", "002", "000", "002", "002", "002", "002"], ["000", "000", "000", "000", "000", "000", "000", "000"]]
+
+    #currently hardcoded as two channels. will xhange later though
+    audio_file_struct = [["000", "000", "000", "000", "000", "000", "000", "000"], ["000", "000", "000", "000", "000", "000", "000", "000"]]
 
     def __init__(self, tempo,num_channels,num_steps):
         self.tempo = tempo #none of these are really implemented yet

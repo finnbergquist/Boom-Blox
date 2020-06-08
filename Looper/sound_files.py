@@ -20,13 +20,14 @@ class mix:
 #     these codes that will inform the Raspi which .wav to play.
 
     sounds = {
-        "001" : pygame.mixer.Sound("Looper/Audio_Files/Choir.wav"),
-        "010" : pygame.mixer.Sound("Looper/Audio_Files/drums.wav"),
-        "100" : pygame.mixer.Sound("Looper/Audio_Files/Track3.wav"),
-        "002" : pygame.mixer.Sound("Looper/Audio_Files/2_SECOND_PIANO.wav"),
-        "020" : pygame.mixer.Sound("Looper/Audio_Files/Track1.wav")
+        "001" : pygame.mixer.Sound("Audio_Files/Choir.wav"),
+        "010" : pygame.mixer.Sound("Audio_Files/drums.wav"),
+        "100" : pygame.mixer.Sound("Audio_Files/Track3.wav"),
+        "002" : pygame.mixer.Sound("Audio_Files/2_SECOND_PIANO.wav"),
+        "020" : pygame.mixer.Sound("Audio_Files/Track1.wav")
     }
 
+    #this play should be used in looper lounge
     def play(self, sound_code, channel_number): 
             """Play arg1 sound in arg2 channel           
             ex) mix.play(1, 0) will play sound 1 in channel 0"""
@@ -39,7 +40,22 @@ class mix:
                 # print(type(code))
                 # print(self.sounds.get(code))
                 self.channels[channel_number].play(self.sounds[sound_code])
-                
+
+    #this play method should used in the step sequencer
+    def play_step(self, sound_code, channel_number): 
+            """Play arg1 sound in arg2 channel           
+            ex) mix.play(1, 0) will play sound 1 in channel 0"""
+            #make code readable by dict
+            
+            code = "'" + sound_code + "'"
+            if sound_code == '000':
+                return
+            else:#play specified sound in specified channel
+                # print(type(code))
+                # print(self.sounds.get(code))
+                self.channels[channel_number].play(self.sounds[sound_code])            
+
+
     def update_channel_volume(self, channel_number, volume):
         """sets the volume of a specific chanel"""     
         self.channels[channel_number].set_volume(volume)
