@@ -1,6 +1,6 @@
 """Audio Looper driver method"""
 import time
-# from gpiozero import MCP3008, PWMLED
+#from gpiozero import MCP3008, PWMLED
 from channel_structure import channels
 from sound_files import mix
 import time
@@ -17,6 +17,7 @@ class step_sequencer:
     def __init__(self, mixer):#mixer is global variable, so it can be accessed everywhere
         self.mixer = mixer
         self.channel_structure = channels(120, 2, 8)#2 channels, 8 steps
+        self.channel_structure.print_audio_file_struct()#not permanent
     
 
     def play_region(self, step):
