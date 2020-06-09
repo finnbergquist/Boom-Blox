@@ -48,7 +48,7 @@ def start_loop(instr):
     """Executable loop. It updates channel volumes on 0.1 second intervals, and plays
     the next step in the sequence every 2 seconds. Loops after 8 steps"""    
     ##get number of channels
-    #num_ch = instr.num_channels
+    #num_ch = instr.num_channel
     step = -1
     
     # mixer.update_channel_volume(0, pot0.value)#setup the channel volumes before audio playback
@@ -68,12 +68,14 @@ def start_loop(instr):
         if (output == None):
             output = check_serial(ser)
         
+        #if its '000' try again
+
 
         elif (len(output) == 3):
                 instr.set_loop(instr.num_channels, output)
                 play_region(instr, instr.num_channels - 1) 
         #get time
-        
+
         curr_time = time.time()
         elapsed_time = curr_time - start_time
         found = False
