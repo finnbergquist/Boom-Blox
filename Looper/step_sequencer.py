@@ -16,17 +16,19 @@ class step_sequencer:
 
     def __init__(self, mixer):#mixer is global variable, so it can be accessed everywhere
         self.mixer = mixer
-        self.channel_structure = channels(120, 2, 4)#2 channels, 8 steps
+        self.channel_structure = channels(120, 1, 4)#2 channels, 4 steps, bpm not implememted yet!!!
+        self.channel_structure.init_analog_inputs()
+        self.channel_structure.scan_tracks()
         self.channel_structure.print_audio_file_struct()#not permanent
-        self.channel_structure.set_audio_num(0,0, "010")#testing sounds, because scan method not fully implementd
+        #self.channel_structure.set_audio_num(0,0, "010")#testing sounds, because scan method not fully implementd
     
 
     def play_region(self, step):
-        """helper method for step_sequencer_loop"""
-        self.mixer.play_step(self.channel_structure.get_audio_num(0, step), 0)
-        self.mixer.play_step(self.channel_structure.get_audio_num(1, step), 1)
-        print(self.channel_structure.get_audio_num(0, step))
-        print(self.channel_structure.get_audio_num(1, step))
+        """helper method for step_sequencer_loop. It plays all the sounds in a step in
+        the number of channels specified by the channel_structure"""
+        for i in range(0, self.channel_structure.num_channels):
+            self.mixer.play_step(self.channel_structure.get_audio_num(i, step), i)
+            print(self.channel_structure.get_audio_num(i, step))
 
 
     def step_sequencer_loop(self):
@@ -40,7 +42,7 @@ class step_sequencer:
             if time.time() >= next_time:
                 step = (step + 1) % 160
                 if (step/40).is_integer():#very fast way to test(i think)
-                    self.play_region(int(step/20))#plays audio files at steps 0,1,2,3,4,5,6,7
+                    self.play_region(int(step/40))#plays audio files at steps 0,1,2,3,4,5,6,7
                 # mixer.update_channel_volume(0, pot0.value)
                 # mixer.update_channel_volume(1, pot1.value)
                 next_time += 0.1
