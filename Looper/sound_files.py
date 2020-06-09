@@ -20,10 +20,15 @@ class mix:
 #     000 representing the default. There will be a dictionary with 
 #     these codes that will inform the Raspi which .wav to play.
 
+#       First digit is instrument, then pattern, then effect.
+
     sounds = {
+        "100" : pygame.mixer.Sound("Looper/Audio_Files/grandPiano.wav"),
+        "120" :pygame.mixer.Sound("Looper/Audio_Files/grandPiano_arp.wav"),
+        "123" :pygame.mixer.Sound("Looper/Audio_Files/grandPiano_reverbArp.wav"),
         "001" : pygame.mixer.Sound("Looper/Audio_Files/Choir.wav"),
         "010" : pygame.mixer.Sound("Looper/Audio_Files/drums.wav"),
-        "100" : pygame.mixer.Sound("Looper/Audio_Files/Track3.wav"),
+        "222" : pygame.mixer.Sound("Looper/Audio_Files/Track3.wav"),
         "002" : pygame.mixer.Sound("Looper/Audio_Files/2_SECOND_PIANO.wav"),
         "020" : pygame.mixer.Sound("Looper/Audio_Files/Track1.wav"),
         "200" : pygame.mixer.Sound("Looper/Audio_Files/techno.wav"),

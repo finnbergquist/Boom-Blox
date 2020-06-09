@@ -17,11 +17,9 @@ def check_serial(ser):
     data = ser.readline()         # read a byte string
     n = data.decode()  # decode byte string into Unicode
     string = n.rstrip() # remove \n and \r
-    #print(string)
     # if its an empty string 
-    if not string:
-        return "777"
-    else:
+
+    if string:
         #get the resistor value, make it an int, sort it and then 
         #turn it back into a string
         MIDI = str(sort(int(n.split(':')[0]), 10))
@@ -30,6 +28,8 @@ def check_serial(ser):
         #make 3-digit code
         output = MIDI+effect+inst      
         return output
+    else:
+        return None
 
 ##MIGHT NOT NEED WITH LOOPER METHOD
 # # Set the channel and step clip 
@@ -50,32 +50,56 @@ def start_loop(instr):
     ##get number of channels
     #num_ch = instr.num_channels
     step = -1
-    next_time = time.time()
+    
     # mixer.update_channel_volume(0, pot0.value)#setup the channel volumes before audio playback
     # mixer.update_channel_volume(1, pot1.value)
+    
+    
     while True:#audio loop
-        #check the arduino for new information
+        #start the timer
+        #OPTIMIZE THIS, THIS IS STARTING THE LOOP SLIGHTLY EARLY
+        BUFFER = 0.1
+        length = 8
+        start_time = time.time()
+        #check for new information    
         output = check_serial(ser)
-        #print(output)
-        # print(output[0] == '1')
-        # play_region(instr, 0)
-        #TEMPORARY
-        if (output[0] == '1'):
-            play_region(instr, 0)
-        if (output[1] == '2'):
-            play_region(instr, 1)
-        if (output[2] == '3'):
-            play_region(instr, 2)
+        
+        #if its a valid code, play the loops
+        if (output == None):
+            output = check_serial(ser)
+        
 
-        time.sleep(8)
-        #Sleep for however long the audio is 
-        # time.sleep(4)
-        # output = check_serial(ser)
-        # print(output)
-        # time.sleep(4)
-        # if time.time() >= next_time:
-        #     play_region(instr, 0)
-        #     next_time += 1
+        elif (len(output) == 3):
+                instr.set_loop(instr.num_channels, output)
+                play_region(instr, instr.num_channels - 1) 
+        #get time
+        
+        curr_time = time.time()
+        elapsed_time = curr_time - start_time
+        found = False
+        #wait until it is next time 
+        while(elapsed_time < length):
+            
+            curr_time = time.time()
+            elapsed_time = curr_time - start_time
+            #when it is getting close refresh 
+            if (elapsed_time > (length - 1)) and (found == False):
+                output = check_serial(ser)
+                found = True
+            #print(output)
+
+
+  
+        # while (time.time() < end_time):
+        #     if (output == '000' or output == '777'):
+        #         continue
+        
+        #     #set the loop based on the arduino input
+        #     else:
+        #         instr.set_loop(instr.num_channels, output)
+        #         play_region(instr, instr.num_channels - 1) 
+        #         print("here")
+
            
 def sort(input, threshold):
     #sort the serial data into specific channels 
@@ -98,15 +122,11 @@ while True:
     #settig up channel data
     TEMPO = 5
     #how many instruments
-    CHANNELS = 3
+    CHANNELS = 1
    
     looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
     # sequencer.scan_tracks#not implemented yet
     #output = '001'
-    # Set first instrument
-    looper.set_loop(1, '030')
-    looper.set_loop(2, '200')
-    looper.set_loop(3, '003')
 
     #setting up mixer
     mixer = mix()
