@@ -1,6 +1,6 @@
 """Audio Looper driver method"""
 import time
-#from gpiozero import MCP3008, PWMLED
+from gpiozero import MCP3008, PWMLED
 from channel_structure import channels
 from sound_files import mix
 import time
