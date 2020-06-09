@@ -10,12 +10,15 @@ class channels:
         self.num_steps = num_steps
         self.audio_file_struct = [["000" for i in range(0,num_steps)] for j in range(0,num_channels)]
 
+    def init_scan(self):
+        
+
     def scan_tracks(self):
         """Fill the step-sequencer array depending on the
         the values yielded by node resistor inputs
         """
 
-        
+
         return
 
     def print_audio_file_struct(self):

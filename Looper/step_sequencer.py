@@ -16,7 +16,7 @@ class step_sequencer:
 
     def __init__(self, mixer):#mixer is global variable, so it can be accessed everywhere
         self.mixer = mixer
-        self.channel_structure = channels(120, 2, 8)#2 channels, 8 steps
+        self.channel_structure = channels(120, 2, 4)#2 channels, 8 steps
         self.channel_structure.print_audio_file_struct()#not permanent
     
 
@@ -26,8 +26,6 @@ class step_sequencer:
         self.mixer.play_step(self.channel_structure.get_audio_num(1, step), 1)
         print(self.channel_structure.get_audio_num(0, step))
         print(self.channel_structure.get_audio_num(1, step))
-
-
 
 
     def step_sequencer_loop(self):
