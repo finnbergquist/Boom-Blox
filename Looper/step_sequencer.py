@@ -17,11 +17,11 @@ class step_sequencer:
     def __init__(self, mixer):#mixer is global variable, so it can be accessed everywhere
         self.mixer = mixer
         self.channel_structure = channels(120, 1, 4)#2 channels, 4 steps, bpm not implememted yet!!!
-        self.channel_structure.init_analog_inputs()
-        self.channel_structure.scan_tracks()
+        #self.channel_structure.init_analog_inputs()
+        #self.channel_structure.scan_tracks()
+        self.channel_structure.set_audio_num(0,0, "010")#testing sounds, because scan method not fully implementd
         self.channel_structure.print_audio_file_struct()#not permanent
-        #self.channel_structure.set_audio_num(0,0, "010")#testing sounds, because scan method not fully implementd
-    
+
 
     def play_region(self, step):
         """helper method for step_sequencer_loop. It plays all the sounds in a step in
