@@ -17,14 +17,15 @@ def check_serial(ser):
     data = ser.readline()         # read a byte string
     n = data.decode()  # decode byte string into Unicode
     string = n.rstrip() # remove \n and \r
+    print(str(sort(int(n.split(':')[1]), 30)))
     # if its an empty string 
 
     if string:
         #get the resistor value, make it an int, sort it and then 
         #turn it back into a string
-        MIDI = str(sort(int(n.split(':')[0]), 10))
-        effect = str(sort(int(n.split(':')[1]), 10))
-        inst = str(sort(int(n.split(':')[2]), 10))
+        MIDI = str(sort(int(n.split(':')[0]), 30))
+        effect = str(sort(int(n.split(':')[1]), 30))
+        inst = str(sort(int(n.split(':')[2]), 30))
         #make 3-digit code
         output = MIDI+effect+inst      
         return output
@@ -59,11 +60,11 @@ def start_loop(instr):
         #start the timer
         #OPTIMIZE THIS, THIS IS STARTING THE LOOP SLIGHTLY EARLY
         BUFFER = 0.1
-        length = 8
+        length = 8.03
         start_time = time.time()
         #check for new information    
         output = check_serial(ser)
-        
+        print(output)
         #if its a valid code, play the loops
         if (output == None):
             output = check_serial(ser)
@@ -71,10 +72,22 @@ def start_loop(instr):
         #if its '000' try again
         elif (output == '000'):
                     output = check_serial(ser)
+        print(output)
+        if (output[0] == '1'):
+                instr.set_loop(1, "555")
+                play_region(instr, 0) 
 
-        elif (len(output) == 3):
-                instr.set_loop(instr.num_channels, output)
-                play_region(instr, instr.num_channels - 1) 
+        if (output[1] == '2'):
+                instr.set_loop(2, "030")
+                play_region(instr, 1)
+
+        if (output[1] == '4'):
+                instr.set_loop(2, "333")
+                play_region(instr, 1)
+
+        if (output[2] == '3'):
+                instr.set_loop(3, "666")
+                play_region(instr, 2)  
         #get time
 
         curr_time = time.time()
@@ -109,6 +122,8 @@ def start_loop(instr):
 def sort(input, threshold):
     #sort the serial data into specific channels 
     #if its around 40 its 1, 100 its 2, 180 its 3, it its 0, then be default
+    if(abs(input - 20) < 4):
+        return 4
     if (abs(input - 0) < threshold):
         return 0
     elif (abs(input - 500) < threshold):
@@ -117,8 +132,7 @@ def sort(input, threshold):
         return 2
     elif (abs(input - 183) < threshold):
         return 3
-    elif(abs(input - 20) < threshold):
-        return 4
+    
     else:
         return "error: can't identify node"
 
@@ -129,7 +143,7 @@ while True:
     #settig up channel data
     TEMPO = 5
     #how many instruments
-    CHANNELS = 1
+    CHANNELS = 3
    
     looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
     # sequencer.scan_tracks#not implemented yet
