@@ -6,7 +6,7 @@ def to_sound_code(resistor_value):
     if round(resistor_value, 2) <= 0.05:
         print("resistor value did not match up with sound file")
         return "000"
-    elif round(resistor_value, 2) == 0.47:
+    elif round(resistor_value, 2) >= 0.4:
         return "100"
     elif round(resistor_value, 2) == 0.10:
         return "010"
