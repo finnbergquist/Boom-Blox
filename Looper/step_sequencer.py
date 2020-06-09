@@ -18,6 +18,7 @@ class step_sequencer:
         self.mixer = mixer
         self.channel_structure = channels(120, 2, 4)#2 channels, 8 steps
         self.channel_structure.print_audio_file_struct()#not permanent
+        self.channel_structure.set_audio_num(0,0, "010")#testing sounds, because scan method not fully implementd
     
 
     def play_region(self, step):
@@ -38,7 +39,7 @@ class step_sequencer:
         while True:#audio loop
             if time.time() >= next_time:
                 step = (step + 1) % 160
-                if (step/20).is_integer():#very fast way to test(i think)
+                if (step/40).is_integer():#very fast way to test(i think)
                     self.play_region(int(step/20))#plays audio files at steps 0,1,2,3,4,5,6,7
                 # mixer.update_channel_volume(0, pot0.value)
                 # mixer.update_channel_volume(1, pot1.value)
