@@ -3,12 +3,15 @@ from gpiozero import MCP3008
 
 def to_sound_code(resistor_value):
     """temporary helper"""
-    if round(resistor_value, 2) == 0.5:
-        return "001"
+    if round(resistor_value, 2) <= 0.05:
+        print("resistor value did not match up with sound file")
+        return "000"
+    elif round(resistor_value, 2) >= 0.4:
+        return "100"
     elif round(resistor_value, 2) == 0.10:
         return "010"
     elif round(resistor_value, 2) == 0.18:
-        return "100"
+        return "312"
     elif round(resistor_value, 2) == 0.02:
         return "002"
     else:
@@ -28,15 +31,17 @@ class channels:
     def init_analog_inputs(self):
         """setup the channel resistor reads fro each step in a 
         SINGLE channel(at least to start)"""
-        for i in range(0, self.num_steps):
+        for i in range(0, self.num_steps * self.num_channels):#will need change when MC3008 values no longer linear
             self.steps_resistance_values.append(MCP3008(i))#[MCP3008[0],MCP3008[1], etc.]
 
     def scan_tracks(self):
         """Fill the step-sequencer array depending on the
         the values yielded by node resistor inputs"""
-        for i in range(0, self.num_steps):#assigning sound_codes based on resistance value in the steps
-            self.audio_file_struct[0][i] = to_sound_code(self.steps_resistance_values[i].value)#only doing this in first channel(for now!!)
-            print(round(self.steps_resistance_values[i].value, 2))
+        for j in range(0, 2):
+            print("entering j loop")
+            for i in range(0, self.num_steps):#assigning sound_codes based on resistance value in the steps
+                self.audio_file_struct[j][i] = to_sound_code(self.steps_resistance_values[i + (4*j)].value)#only doing this in first channel(for now!!)
+                print(round(self.steps_resistance_values[i + (4*j)].value, 2))
 
     def print_audio_file_struct(self):
         for i in range(0, self.num_channels):
