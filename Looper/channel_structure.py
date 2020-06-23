@@ -57,7 +57,7 @@ class channels:
         self.steps_resistance_values = []#holds resistor scanning objects at each step
 
     def init_analog_inputs(self):
-        """setup the channel resistor reads fro each step in a 
+        """setup the channel resistor reads for each step in a 
         SINGLE channel(at least to start)"""
         for i in range(0, self.num_steps * self.num_channels):#will need change when MC3008 values no longer linear
             self.steps_resistance_values.append(MCP3008(i))#[MCP3008[0],MCP3008[1], etc.]
