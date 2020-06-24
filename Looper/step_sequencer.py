@@ -11,12 +11,12 @@ import signal
 """The step_sequencer class holds all the information about the sequencer region of this device.
 It contains a channel_structure object(AKA: channels), and the channel_structure can be manipulated, 
 using the methods in that class(ex: ). This class also has a loop method, that plays the steps
-from the channel_structure objects, using methods in the sounf_files class"""
+from the channel_structure objects, using methods in the sound_files class"""
 class step_sequencer:
 
     def __init__(self, mixer):#mixer is global variable, so it can be accessed everywhere
         self.mixer = mixer
-        self.channel_structure = channels(120, 2, 4)#2 channels, 4 steps, bpm not implememted yet!!!
+        self.channel_structure = channels(120, 4, 4)#2 channels, 4 steps, bpm not implememted yet!!!
 
         #use this code when hooked up to pi!!!!
         #self.channel_structure.init_analog_inputs()
