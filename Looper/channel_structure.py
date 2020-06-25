@@ -6,16 +6,44 @@ def to_sound_code(resistor_value):
     if round(resistor_value, 2) <= 0.05:
         print("resistor value did not match up with sound file")
         return "000"
-    elif round(resistor_value, 2) >= 0.4:
+    elif 0.05 < round(resistor_value, 2) <= 0.10:
         return "100"
-    elif round(resistor_value, 2) == 0.10:
+    elif 0.10 < round(resistor_value, 2) <= 0.15:
         return "010"
-    elif round(resistor_value, 2) == 0.18:
+    elif 0.15 < round(resistor_value, 2) <= 0.20:
         return "312"
-    elif round(resistor_value, 2) == 0.02:
+    elif 0.20 < round(resistor_value, 2) <= 0.25:
+        return "002"
+    elif 0.25 < round(resistor_value, 2) <= 0.30:
+        return "002"
+    elif 0.30 < round(resistor_value, 2) <= 0.35:
+        return "002"
+    elif 0.35 < round(resistor_value, 2) <= 0.40:
+        return "002"
+    elif 0.40 < round(resistor_value, 2) <= 0.45:
+        return "002"
+    elif 0.45 < round(resistor_value, 2) <= 0.50:
+        return "002"
+    elif 0.55 < round(resistor_value, 2) <= 0.60:
+        return "002"
+    elif 0.60 < round(resistor_value, 2) <= 0.65:
+        return "002"
+    elif 0.65 < round(resistor_value, 2) <= 0.70:
+        return "002"
+    elif 0.70 < round(resistor_value, 2) <= 0.75:
+        return "002"
+    elif 0.75 < round(resistor_value, 2) <= 0.80:
+        return "002"
+    elif 0.80 < round(resistor_value, 2) <= 0.85:
+        return "002"
+    elif 0.85 < round(resistor_value, 2) <= 0.90:
+        return "002"
+    elif 0.90 < round(resistor_value, 2) <= 0.95:
+        return "002"
+    elif 0.95 < round(resistor_value, 2) <= 1.0:
         return "002"
     else:
-        print("resistor value did not match up with sound file")
+        print("resistor value read incorrectly. Value not between 0,1")
         return "000"
 
 class channels:
@@ -29,7 +57,7 @@ class channels:
         self.steps_resistance_values = []#holds resistor scanning objects at each step
 
     def init_analog_inputs(self):
-        """setup the channel resistor reads fro each step in a 
+        """setup the channel resistor reads for each step in a 
         SINGLE channel(at least to start)"""
         for i in range(0, self.num_steps * self.num_channels):#will need change when MC3008 values no longer linear
             self.steps_resistance_values.append(MCP3008(i))#[MCP3008[0],MCP3008[1], etc.]
