@@ -1,0 +1,4 @@
+HOW TO WORK WITH RASPI
+
+1. When writing code, write on your computer, then push to git.
+Pull from raspi THROUGH SSH and run over terminal. 
