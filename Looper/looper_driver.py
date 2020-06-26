@@ -1,6 +1,9 @@
 """Audio Looper driver method"""
 import time
 import serial
+
+#lets switch all of this over to WIRE!
+
 # from gpiozero import MCP3008, PWMLED
 from looper import Looper
 from sound_files import mix
