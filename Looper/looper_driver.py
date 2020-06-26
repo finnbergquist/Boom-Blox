@@ -6,7 +6,7 @@ from looper import Looper
 from sound_files import mix
 
 # set up the serial line
-port = '/dev/cu.usbmodem143101'
+port = '/dev/cu.usbmodem143401'
 ser = serial.Serial(port, 9600, timeout=0.1)
 time.sleep(2)
 
@@ -18,7 +18,6 @@ def check_serial(ser):
     n = data.decode()  # decode byte string into Unicode
     string = n.rstrip() # remove \n and \r
     # if its an empty string 
-
     if string:
         #get the resistor value, make it an int, sort it and then 
         #turn it back into a string
@@ -26,7 +25,7 @@ def check_serial(ser):
         effect = str(sort(int(n.split(':')[1]), 10))
         inst = str(sort(int(n.split(':')[2]), 10))
         #make 3-digit code
-        output = MIDI+effect+inst      
+        output = MIDI+effect+inst   
         return output
     else:
         return None
@@ -63,18 +62,20 @@ def start_loop(instr):
         start_time = time.time()
         #check for new information    
         output = check_serial(ser)
+        print(output)
         
         #if its a valid code, play the loops
         if (output == None):
             output = check_serial(ser)
+            print(output)
         
         #if its '000' try again
         elif (output == '000'):
                     output = check_serial(ser)
 
         elif (len(output) == 3):
-                instr.set_loop(instr.num_channels, output)
-                play_region(instr, instr.num_channels - 1) 
+            instr.set_loop(instr.num_channels, output)
+            play_region(instr, instr.num_channels - 1) 
         #get time
 
         curr_time = time.time()
@@ -90,20 +91,20 @@ def start_loop(instr):
                 output = check_serial(ser)
                 if (output == None):
                     output = check_serial(ser)
-                found = True
+                    found = True
             #print(output)
 
 
-  
-        # while (time.time() < end_time):
-        #     if (output == '000' or output == '777'):
-        #         continue
-        
-        #     #set the loop based on the arduino input
-        #     else:
-        #         instr.set_loop(instr.num_channels, output)
-        #         play_region(instr, instr.num_channels - 1) 
-        #         print("here")
+    
+            # while (time.time() < end_time):
+            #     if (output == '000' or output == '777'):
+            #         continue
+            
+            #     #set the loop based on the arduino input
+            #     else:
+            #         instr.set_loop(instr.num_channels, output)
+            #         play_region(instr, instr.num_channels - 1) 
+            #         print("here")
 
            
 def sort(input, threshold):
