@@ -11,8 +11,8 @@ bus = smbus2.SMBus(1)
 address = 0x04
 
 def readBus():
-    string = bus.read_byte(address)
-    return string
+    data = bus.read_i2c_block_data(address, 0, 16)
+    return data
 
 def check_serial(ser):
     # Read input from Arduino, 777 is the error code
@@ -146,7 +146,7 @@ while True:
     # start_loop(looper)
 
     print(readBus())
-    time.sleep(2)
+    time.sleep(.5)
        
 
             
