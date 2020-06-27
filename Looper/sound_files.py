@@ -5,15 +5,13 @@ class mix:
     pygame.mixer.pre_init(22050, -16, 2, 256)#22050=default frequecy,-16=size(16 signed bits per audio sample
     pygame.mixer.init()                      #2-->stereo sound, 512=buffersize
     pygame.init()
+    #set volume 
+    pygame.mixer.music.set_volume(1))
     
     #initialize channels in the mixer
     channels = [pygame.mixer.Channel(0), pygame.mixer.Channel(1),
                 pygame.mixer.Channel(2), pygame.mixer.Channel(3)]
-    #set volume
-    channels[0].set_volume[1]
-    channels[1].set_volume[1]
-    channels[2].set_volume[1]
-    channels[3].set_volume[1]
+
     
     #sounds dictionary
     # Accessing sounds: 
