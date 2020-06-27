@@ -4,7 +4,7 @@ import smbus2
 bus = smbus2.SMBus(1)
 arduino_address = 0x04
 
-def read()
+def read():
     """returns 16 bytes in an array for, each byte corresponding to an analog input from arduino mega"""
     input = bus.read_i2c_block_data(arduino_address, 0, 16)
     return input
