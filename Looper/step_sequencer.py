@@ -20,11 +20,11 @@ class step_sequencer:
 
         #use this code when hooked up to pi!!!!
         #self.channel_structure.init_analog_inputs()
-        #self.channel_structure.scan_tracks()
+        self.channel_structure.scan_tracks()
 
         #this code is for testing on mac
-        self.channel_structure.set_audio_num(0,0, "010")#testing sounds, because scan method not fully implementd
-        self.channel_structure.set_audio_num(1,3, "010")
+        #self.channel_structure.set_audio_num(0,0, "010")#testing sounds, because scan method not fully implementd
+        #self.channel_structure.set_audio_num(1,3, "010")
         self.channel_structure.print_audio_file_struct()#not permanent
 
 
