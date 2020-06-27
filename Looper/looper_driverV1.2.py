@@ -48,8 +48,12 @@ def start_loop(instr):
         
         #if its '000' try again
         while (output == '000'):
-                output = parse(readBus())
-                print(output)
+            output = parse(readBus())
+            print(output)
+        #if its non-identifiable, try again
+        while (output[0] == '8' or output[1] == '8' or output[2] == '8'):
+            output = parse(readBus())
+            print(output)
 
         if (len(output) == 3):
             instr.set_loop(instr.num_channels, output)
@@ -78,7 +82,8 @@ def sort(input, threshold):
     elif(abs(input - 20) < threshold):
         return 4
     else:
-        return "error: can't identify node"
+        ##error code
+        return 8
 
 
 while True:
@@ -90,7 +95,8 @@ while True:
     looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
     # sequencer.scan_tracks#not implemented yet
     #output = '001'
-   
+    #pause/unpause - pygame.mixer.pause() 
+    #pygame.mixer.stop()
     #setting up mixer
     mixer = mix()
     #start loop on sequencer
