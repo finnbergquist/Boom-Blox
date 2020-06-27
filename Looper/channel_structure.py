@@ -13,8 +13,8 @@ def read():
 def to_sound_code(resistor_value):
     """temporary helper"""
     if round(resistor_value, 2) <= 5:
-        print("resistor value did not match up with sound file")
-        return "000"
+        print("resistor value less than 5")
+        return "010"
     
     else:
         print("resistor value read incorrectly. Value not between 0,1")
