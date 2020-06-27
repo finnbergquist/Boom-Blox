@@ -46,16 +46,12 @@ def start_loop(instr):
         output = parse(readBus())
         print(output)
         
-        #if its a valid code, play the loops
-        if (output == None):
-            output = parse(readBus())
-            print(output)
-        
         #if its '000' try again
-        elif (output == '000'):
-                    output = parse(readBus())
+        while (output == '000'):
+                output = parse(readBus())
+                print(output)
 
-        elif (len(output) == 3):
+        if (len(output) == 3):
             instr.set_loop(instr.num_channels, output)
             play_region(instr, instr.num_channels - 1) 
         #get time
