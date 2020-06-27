@@ -12,45 +12,10 @@ def read():
 
 def to_sound_code(resistor_value):
     """temporary helper"""
-    if round(resistor_value, 2) <= 0.05:
+    if round(resistor_value, 2) <= 5:
         print("resistor value did not match up with sound file")
         return "000"
-    elif 0.05 < round(resistor_value, 2) <= 0.10:
-        return "100"
-    elif 0.10 < round(resistor_value, 2) <= 0.15:
-        return "010"
-    elif 0.15 < round(resistor_value, 2) <= 0.20:
-        return "312"
-    elif 0.20 < round(resistor_value, 2) <= 0.25:
-        return "002"
-    elif 0.25 < round(resistor_value, 2) <= 0.30:
-        return "002"
-    elif 0.30 < round(resistor_value, 2) <= 0.35:
-        return "002"
-    elif 0.35 < round(resistor_value, 2) <= 0.40:
-        return "002"
-    elif 0.40 < round(resistor_value, 2) <= 0.45:
-        return "002"
-    elif 0.45 < round(resistor_value, 2) <= 0.50:
-        return "002"
-    elif 0.55 < round(resistor_value, 2) <= 0.60:
-        return "002"
-    elif 0.60 < round(resistor_value, 2) <= 0.65:
-        return "002"
-    elif 0.65 < round(resistor_value, 2) <= 0.70:
-        return "002"
-    elif 0.70 < round(resistor_value, 2) <= 0.75:
-        return "002"
-    elif 0.75 < round(resistor_value, 2) <= 0.80:
-        return "002"
-    elif 0.80 < round(resistor_value, 2) <= 0.85:
-        return "002"
-    elif 0.85 < round(resistor_value, 2) <= 0.90:
-        return "002"
-    elif 0.90 < round(resistor_value, 2) <= 0.95:
-        return "002"
-    elif 0.95 < round(resistor_value, 2) <= 1.0:
-        return "002"
+    
     else:
         print("resistor value read incorrectly. Value not between 0,1")
         return "000"
@@ -79,8 +44,8 @@ class channels:
         for j in range(0, self.num_channels):
             print("entering j loop")
             for i in range(0, self.num_steps):#assigning sound_codes based on resistance value in the steps
-                self.audio_file_struct[j][i] = to_sound_code(self.steps_resistance_values[i + (4*j)].value)#only doing this in first channel(for now!!)
-                print(round(self.steps_resistance_values[i + (4*j)].value, 2))
+                self.audio_file_struct[j][i] = to_sound_code(self.steps_resistance_values[i + (4*j)])#only doing this in first channel(for now!!)
+                #print(round(self.steps_resistance_values[i + (4*j)].value, 2))
 
     def print_audio_file_struct(self):
         for i in range(0, self.num_channels):
