@@ -11,7 +11,7 @@ bus = smbus2.SMBus(1)
 address = 0x04
 
 def readBus():
-    data = bus.read_i2c_block_data(address, 0, 16)
+    data = bus.read_i2c_block_data(address, 0, 3)
     return data
 
 def check_serial(ser):
