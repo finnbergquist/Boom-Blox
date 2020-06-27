@@ -6,7 +6,7 @@ class mix:
     pygame.mixer.init()                      #2-->stereo sound, 512=buffersize
     pygame.init()
     #set volume 
-    pygame.mixer.music.set_volume(1.0))
+    pygame.mixer.music.set_volume(1.0)
     
     #initialize channels in the mixer
     channels = [pygame.mixer.Channel(0), pygame.mixer.Channel(1),
