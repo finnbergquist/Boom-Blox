@@ -14,6 +14,13 @@ def readBus():
     data = bus.read_i2c_block_data(address, 0, 3)
     return data
 
+def parse(data):
+    MIDI = sort(data[0], 10)
+    effect = sort(data[1], 10)
+    inst = sort(data[2], 10)
+    output = str(MIDI) + str(effect) + str(inst)
+    return output
+
 def check_serial(ser):
     # Read input from Arduino, 777 is the error code
     output = "777"
@@ -116,18 +123,16 @@ def sort(input, threshold):
     #if its around 40 its 1, 100 its 2, 180 its 3, it its 0, then be default
     if (abs(input - 0) < threshold):
         return 0
-    elif (abs(input - 500) < threshold):
+    elif (abs(input - 255) < threshold):
         return 1
     elif (abs(input - 100) < threshold):
         return 2
-    elif (abs(input - 183) < threshold):
+    elif (abs(input - 153) < threshold):
         return 3
     elif(abs(input - 20) < threshold):
         return 4
     else:
         return "error: can't identify node"
-
-
 
 
 while True:
@@ -145,7 +150,8 @@ while True:
     # #start loop on sequencer
     # start_loop(looper)
 
-    print(readBus())
+    data = readBus()
+    print(parse(data))
     time.sleep(.5)
        
 
