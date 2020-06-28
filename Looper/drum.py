@@ -53,6 +53,7 @@ def start_loop(instr):
         if (output == 1):
              play_region(instr, 2) 
              print("ye")
+             
 
         if (elapsed_time % 1.0 < 0.1):
             play_region(instr, 0) 
@@ -60,6 +61,7 @@ def start_loop(instr):
 
         if (elapsed_time > length):
             start_time = time.time()
+            time.sleep(0.1)
 
 
            
