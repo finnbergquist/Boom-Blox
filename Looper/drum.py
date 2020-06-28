@@ -44,9 +44,11 @@ def start_loop(instr):
         #set loop as kick
         instr.set_loop(instr.num_channels, '444')
         #print(output)
-        if (output = 1):
+        if (output == 1):
              play_region(instr, instr.num_channels - 1) 
+             print("ye")
              time.sleep(0.5)
+
 
            
 def sort(input, threshold):
