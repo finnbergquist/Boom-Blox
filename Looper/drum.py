@@ -32,22 +32,37 @@ def start_loop(instr):
     # mixer.update_channel_volume(0, pot0.value)#setup the channel volumes before audio playback
     # mixer.update_channel_volume(1, pot1.value)
     
-    
+    start_time = time.time()
+
     while True:#audio loop
         #start the timer
         #OPTIMIZE THIS, THIS IS STARTING THE LOOP SLIGHTLY EARLY
+        curr_time = time.time()
+        elapsed_time = curr_time - start_time
         BUFFER = 0.1
-        length = 8
-        start_time = time.time()
+        length = 8    
         #check for new information    
         output = parse(readBus())
-        #set loop as kick
-        instr.set_loop(instr.num_channels, '444')
+        #set metronome
+        instr.set_loop(0, '666')
+        #set kick
+        instr.set_loop(1, '444')
+        #set snare
+        instr.set_loop(2, '444')
         #print(output)
+
+        #if the 
         if (output == 1):
              play_region(instr, instr.num_channels - 1) 
              print("ye")
              time.sleep(0.5)
+
+
+        #wait until it is next time 
+        while(elapsed_time < length):
+            
+            curr_time = time.time()
+            elapsed_time = curr_time - start_time
 
 
            
@@ -73,7 +88,7 @@ while True:
     #settig up channel data
     TEMPO = 5
     #how many instruments
-    CHANNELS = 1
+    CHANNELS = 3
    
     looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
     # sequencer.scan_tracks#not implemented yet
