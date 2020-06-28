@@ -36,7 +36,7 @@ def start_loop(instr):
         #start the timer
         #OPTIMIZE THIS, THIS IS STARTING THE LOOP SLIGHTLY EARLY
         curr_time = time.time()
-        elapsed_time = curr_time - start_time
+        elapsed_time = round(curr_time - start_time, 2)
         BUFFER = 0.1
         length = 8    
         #check for new information    
@@ -57,13 +57,14 @@ def start_loop(instr):
              
 
 
-        # if (elapsed_time % 1.0 < 0.1):
+        if (elapsed_time % 1.00 == 0):
         #     play_region(instr, 0) 
         #     time.sleep(0.1)
-        print(elapsed_time)
+            print("here")
 
         if (elapsed_time > length):
             start_time = time.time()
+            print("done")
 
 
            
