@@ -44,16 +44,16 @@ def start_loop(instr):
         start_time = time.time()
         #check for new information    
         output = parse(readBus())
-        print(output)
+        #print(output)
         
         #if its '000' try again
         while (output == '000'):
             output = parse(readBus())
-            print(output)
+            #print(output)
         #if its non-identifiable, try again
         while (output[0] == '8' or output[1] == '8' or output[2] == '8'):
             output = parse(readBus())
-            print(output)
+            #print(output)
 
         if (len(output) == 3):
             instr.set_loop(instr.num_channels, output)
