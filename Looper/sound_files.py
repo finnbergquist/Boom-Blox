@@ -36,8 +36,7 @@ class mix:
         "312" : pygame.mixer.Sound("Audio_Files/triumph_reverbArp.wav"),
         "000" : pygame.mixer.Sound("Audio_Files/Choir.wav"),
         "010" : pygame.mixer.Sound("Audio_Files/drums.wav"),
-        "444" : pygame.mixer.Sound("Audio_Files/kick.wav"),
-        "555" : pygame.mixer.Sound("Audio_Files/Snare_Hollow.wav")
+        "555" : pygame.mixer.Sound("Audio_Files/Snare_Hollow.ogg")
         # "222" : pygame.mixer.Sound("Looper/Audio_Files/Track3.wav"),
         # "002" : pygame.mixer.Sound("Looper/Audio_Files/2_SECOND_PIANO.wav"),
         # "020" : pygame.mixer.Sound("Looper/Audio_Files/Track1.wav"),
