@@ -57,10 +57,10 @@ def start_loop(instr):
              
         #print(round(elapsed_time % 1.00, 2))
 
-        if (round(elapsed_time % 1.00, 2) == 0.00):
+        if (round(elapsed_time % 1.00, 3) == 0.00):
             play_region(instr, 0) 
         #     time.sleep(0.1)
-            print("here: " + str(round(elapsed_time % 1.00, 2)))
+            print("here: " + str(round(elapsed_time))
 
         if (elapsed_time > length):
             start_time = time.time()
