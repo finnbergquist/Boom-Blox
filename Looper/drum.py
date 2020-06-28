@@ -55,12 +55,12 @@ def start_loop(instr):
         #      print("ye")
         #      time.sleep(0.1)
              
+        print(elapsed_time % 1.00)
 
-
-        if (elapsed_time % 1.00 == 0):
+        #if (elapsed_time % 1.00 == 0):
         #     play_region(instr, 0) 
         #     time.sleep(0.1)
-            print("here")
+        #    print("here")
 
         if (elapsed_time > length):
             start_time = time.time()
