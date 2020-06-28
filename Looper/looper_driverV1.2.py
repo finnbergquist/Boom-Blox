@@ -99,6 +99,7 @@ while True:
     #pygame.mixer.stop()
     #setting up mixer
     mixer = mix()
+    mixer.update_channel_volume(0, 1.0)
     #start loop on sequencer
     start_loop(looper)
        
