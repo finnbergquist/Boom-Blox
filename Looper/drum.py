@@ -48,21 +48,20 @@ def start_loop(instr):
         #set kick
         instr.set_loop(1, '444')
         #set snare
-        instr.set_loop(2, '444')
+        instr.set_loop(2, '555')
         #print(output)
 
         #if the 
         if (output == 1):
-             play_region(instr, instr.num_channels - 1) 
+             play_region(instr, 2) 
              print("ye")
-             time.sleep(0.5)
 
+        if (elapsed_time % 1.0 < 0.1):
+            play_region(instr, 0) 
+        
 
-        #wait until it is next time 
-        while(elapsed_time < length):
-            
-            curr_time = time.time()
-            elapsed_time = curr_time - start_time
+        if (elapsed_time > length):
+            start_time = time.time()
 
 
            
