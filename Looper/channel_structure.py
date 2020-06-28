@@ -1,6 +1,7 @@
 from gpiozero import MCP3008
 import smbus2
 
+#initializing i2c protocall
 bus = smbus2.SMBus(1)
 arduino_address = 0x04
 
@@ -29,12 +30,12 @@ class channels:
         self.num_steps = num_steps
         self.audio_file_struct = [["000" for i in range(0,num_steps)] for j in range(0,num_channels)]
         self.steps_resistance_values = []#holds current resistor values
+        self.pot_values = pot_values
 
     def init_analog_inputs(self):
-        """setup the channel resistor reads for each step in a 
-        SINGLE channel(at least to start)"""
-        for i in range(0, self.num_steps * self.num_channels):#will need change when MC3008 values no longer linear
-            self.steps_resistance_values.append(MCP3008(i))#[MCP3008[0],MCP3008[1], etc.]
+        """setup potentiometer scanning objects"""
+        for i in range(0, 8):#will need change when MC3008 values no longer linear
+            self.pot_values.append(MCP3008(i))#[MCP3008[0],MCP3008[1], etc.]
 
     def scan_tracks(self):
         """Fill the step-sequencer array depending on the
@@ -44,9 +45,11 @@ class channels:
         for j in range(0, self.num_channels):
             print("entering j loop")
             for i in range(0, self.num_steps):#assigning sound_codes based on resistance value in the steps
-                self.audio_file_struct[j][i] = to_sound_code(self.steps_resistance_values[i + (4*j)])#only doing this in first channel(for now!!)
+                self.audio_file_struct[j][i] = to_sound_code(self.steps_resistance_values[i + (self.num_steps*j)])#only doing this in first channel(for now!!)
                 #print(round(self.steps_resistance_values[i + (4*j)].value, 2))
 
+
+    #don't think this is being used
     def print_audio_file_struct(self):
         for i in range(0, self.num_channels):
             print(self.audio_file_struct[i])
