@@ -11,12 +11,10 @@ bus = smbus2.SMBus(1)
 address = 0x04
 
 def readBus():
-    data = bus.read_i2c_block_data(address, 0, 1)
+    data = bus.read_byte(address)
     return data
 
-def parse(data):
-    output = data[0]
-    return output
+
     
 def play_region(instr, channel_number):
     ##play loop from channel number 
@@ -42,7 +40,7 @@ def start_loop(instr):
         BUFFER = 0.1
         length = 8    
         #check for new information    
-        output = parse(readBus())
+        output = readBus()
         #set metronome
         instr.set_loop(0, '666')
         #set kick
