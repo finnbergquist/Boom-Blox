@@ -70,8 +70,8 @@ def start_loop(instr):
         if (output == 1 and (elapsed_time - hit_time) > 0.1):
             play_region(instr, 1)  
             hit_time = elapsed_time
-            snare.append(hit_time)
-            print(output)
+            snare.append(math.floor(hit_time * 4))
+            
 
 
         #when you are at an interval, update
