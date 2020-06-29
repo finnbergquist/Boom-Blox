@@ -71,9 +71,7 @@ def start_loop(instr):
             play_region(instr, 1)  
             hit_time = elapsed_time
             #snare_hits.append(math.floor(hit_time * 4))
-            if round(hit_time * 4) == length:
-                snare[length - 1] = 1
-            else:
+            if round(hit_time * 4) != length:
                 snare[round(hit_time * 4)] = 1
             
 
