@@ -61,10 +61,12 @@ def start_loop(instr):
             floor_time = math.floor(elapsed_time)
         #read bus 
         output = readBus()
-        #if its high, play snare
-        if (output == 1):
-            play_region(instr, 1) 
+        #if its high, play snare, wait a little before checking again
+        if (output == 1 and (elapsed_time - hit_time) > 0.2):
+            play_region(instr, 1)  
+            hit_time = elapsed_time
             print(output)
+
 
         #when you are at an interval, update
         if (floor_time != last):
