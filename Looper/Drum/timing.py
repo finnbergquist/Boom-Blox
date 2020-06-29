@@ -64,6 +64,7 @@ def start_loop(instr):
         #if its high, play snare
         if (output == 1):
             play_region(instr, 1) 
+            print(output)
 
         #when you are at an interval, update
         if (floor_time != last):
