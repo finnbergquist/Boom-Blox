@@ -103,7 +103,15 @@ while True:
     mixer.update_channel_volume(0, 1.0)
     #start loop on sequencer
 
-    start_loop(looper)
+    looper.set_loop(0, '555')
+    output = readBus()
+    #set metronome
+    # #if the 
+    if (output == 1):
+        play_region(looper, 0) 
+        print("ye")
+        time.sleep(1)
+    # start_loop(looper)
 
 
        
