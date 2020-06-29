@@ -30,7 +30,7 @@ def start_loop(instr):
     # mixer.update_channel_volume(0, pot0.value)#setup the channel volumes before audio playback
     # mixer.update_channel_volume(1, pot1.value)
     
-    start_time = time.time()
+    # start_time = time.time()
     # instr.set_loop(0, '555')
     # #set kick
     # instr.set_loop(1, '444')
@@ -41,10 +41,10 @@ def start_loop(instr):
     while True:#audio loop
         #start the timer
         #OPTIMIZE THIS, THIS IS STARTING THE LOOP SLIGHTLY EARLY
-        curr_time = time.time()
-        elapsed_time = curr_time - start_time
-        BUFFER = 0.1
-        length = 8    
+        # curr_time = time.time()
+        # elapsed_time = curr_time - start_time
+        # BUFFER = 0.1
+        # length = 8    
         #check for new information    
         output = readBus()
         #set metronome
@@ -63,9 +63,9 @@ def start_loop(instr):
         # #     time.sleep(0.1)
         #     print("here: " + str(round(elapsed_time)))
 
-        if (elapsed_time > length):
-            start_time = time.time()
-            print("done")
+        # if (elapsed_time > length):
+        #     start_time = time.time()
+        #     print("done")
 
 
            
