@@ -31,6 +31,12 @@ def start_loop(instr):
     # mixer.update_channel_volume(1, pot1.value)
     
     start_time = time.time()
+    instr.set_loop(0, '666')
+    #set kick
+    instr.set_loop(1, '444')
+    #set snare
+    instr.set_loop(2, '555')
+    #print(output)
 
     while True:#audio loop
         #start the timer
@@ -42,18 +48,13 @@ def start_loop(instr):
         #check for new information    
         output = readBus()
         #set metronome
-        instr.set_loop(0, '666')
-        #set kick
-        instr.set_loop(1, '444')
-        #set snare
-        instr.set_loop(2, '555')
-        #print(output)
+        
 
         # #if the 
         if (output == 1):
             play_region(instr, 2) 
             print("ye")
-            time.sleep(0.1)
+            time.sleep(1)
              
         #print(round(elapsed_time % 1.00, 2))
 
@@ -102,10 +103,7 @@ while True:
     mixer.update_channel_volume(0, 1.0)
     #start loop on sequencer
 
-    looper.set_loop(0, '555')
-    play_region(looper, 0) 
-    time.sleep(1)
-
+    start_loop(looper)
 
 
        
