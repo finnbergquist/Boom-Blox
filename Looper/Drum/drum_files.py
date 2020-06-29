@@ -33,7 +33,7 @@ class mix:
 
     sounds = {
         "100" : pygame.mixer.Sound("drum_audio/kick.ogg"),
-        "200" : pygame.mixer.Sound("drum_audio/open_hat.wav"),
+        "200" : pygame.mixer.Sound("drum_audio/closed_hat.ogg"),
         "300" : pygame.mixer.Sound("drum_audio/Snare_Hollow.ogg")
 
     }
