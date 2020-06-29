@@ -42,8 +42,9 @@ def start_loop(instr):
     instr.set_loop(1, '200')
     instr.set_loop(2, '300')
 
-    #set last time
+    #set last time and hit time
     last = -1
+    hit_time = 0
 
     
 
