@@ -34,8 +34,8 @@ def start_loop(instr):
     #set sequences
     kick = [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
     open_hat = [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0]
-    # snare = [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]
-    snare = []
+    snare = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    snare_hits = []
     instruments = [kick, open_hat, snare]
 
     #set loops, THIS IS FUCKING WEIRD 
@@ -70,7 +70,8 @@ def start_loop(instr):
         if (output == 1 and (elapsed_time - hit_time) > 0.1):
             play_region(instr, 1)  
             hit_time = elapsed_time
-            snare.append(math.floor(hit_time * 4))
+            #snare_hits.append(math.floor(hit_time * 4))
+            snare[math.floor(hit_time * 4)] = 1
             
 
 
@@ -85,8 +86,8 @@ def start_loop(instr):
 
             if (kick[last] == 1):
                 play_region(looper, 2)
-            # if (snare[last] == 1):
-            #     play_region(looper, 1)
+            if (snare[last] == 1):
+                 play_region(looper, 1)
             if (open_hat[last] == 1):
                 play_region(looper, 0)
             
