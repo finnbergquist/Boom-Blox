@@ -67,7 +67,7 @@ def start_loop(instr):
         #read bus t
         output = readBus()
         #if its high, play snare, wait a little before checking again
-        if (output == 1 and (elapsed_time - hit_time) > 0.1):
+        if (output == 1 and (elapsed_time - hit_time) > 0.15):
             play_region(instr, 1)  
             hit_time = elapsed_time
             #snare_hits.append(math.floor(hit_time * 4))
