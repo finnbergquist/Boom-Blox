@@ -63,10 +63,10 @@ def start_loop(instr):
         #read bus 
         output = readBus()
         #if its high, play snare, wait a little before checking again
-        if (output == 1 and (elapsed_time - hit_time) > 0.2):
+        if (output == 1 and (elapsed_time - hit_time) > 0.1):
             play_region(instr, 1)  
             hit_time = elapsed_time
-            print(output)
+            #print(output)
 
 
         #when you are at an interval, update
@@ -80,8 +80,8 @@ def start_loop(instr):
 
             if (kick[last] == 1):
                 play_region(looper, 2)
-            if (snare[last] == 1):
-                play_region(looper, 1)
+            # if (snare[last] == 1):
+            #     play_region(looper, 1)
             if (open_hat[last] == 1):
                 play_region(looper, 0)
             
