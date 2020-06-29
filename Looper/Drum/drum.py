@@ -3,8 +3,8 @@ import time
 
 import smbus2
 # from gpiozero import MCP3008, PWMLED
-from "../looper" import Looper
-from "../sound_files" import mix
+from looper import Looper
+from drum_files import mix
 
 # set up the bus
 bus = smbus2.SMBus(1)

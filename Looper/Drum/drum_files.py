@@ -23,13 +23,22 @@ class mix:
 #     these codes that will inform the Raspi which .wav to play.
 
 #       First digit is instrument, then pattern, then effect.
+    #FOR MAC
+    # sounds = {
+    #     "100" : pygame.mixer.Sound("/Users/paulmiller-schmidt/Documents/GitHub/Boom-Blox/Looper/Drum/drum_audio/kick.ogg"),
+    #     "200" : pygame.mixer.Sound("/Users/paulmiller-schmidt/Documents/GitHub/Boom-Blox/Looper/Drum/drum_audio/open_hat.wav"),
+    #     "300" : pygame.mixer.Sound("/Users/paulmiller-schmidt/Documents/GitHub/Boom-Blox/Looper/Drum/drum_audio/Snare_Hollow.ogg")
+
+    # }
 
     sounds = {
-        "100" : pygame.mixer.Sound("/Users/paulmiller-schmidt/Documents/GitHub/Boom-Blox/Looper/Drum/drum_audio/kick.ogg"),
-        "200" : pygame.mixer.Sound("/Users/paulmiller-schmidt/Documents/GitHub/Boom-Blox/Looper/Drum/drum_audio/open_hat.wav"),
-        "300" : pygame.mixer.Sound("/Users/paulmiller-schmidt/Documents/GitHub/Boom-Blox/Looper/Drum/drum_audio/Snare_Hollow.ogg")
+        "100" : pygame.mixer.Sound("drum_audio/kick.ogg"),
+        "200" : pygame.mixer.Sound("drum_audio/open_hat.wav"),
+        "300" : pygame.mixer.Sound("drum_audio/Snare_Hollow.ogg")
 
     }
+
+
 
     #this play should be used in looper lounge
     def play(self, sound_code, channel_number): 
