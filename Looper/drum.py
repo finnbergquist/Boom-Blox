@@ -51,9 +51,9 @@ def start_loop(instr):
 
         # #if the 
         if (output == 1):
-             play_region(instr, 2) 
-             print("ye")
-        #      time.sleep(0.1)
+            play_region(instr, 2) 
+            print("ye")
+            time.sleep(0.1)
              
         #print(round(elapsed_time % 1.00, 2))
 
@@ -90,7 +90,7 @@ while True:
     #settig up channel data
     TEMPO = 5
     #how many instruments
-    CHANNELS = 3
+    CHANNELS = 1
    
     looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
     # sequencer.scan_tracks#not implemented yet
@@ -101,7 +101,12 @@ while True:
     mixer = mix()
     mixer.update_channel_volume(0, 1.0)
     #start loop on sequencer
-    start_loop(looper)
+
+    looper.set_loop(0, '555')
+    play_region(looper, 0) 
+    time.sleep(1)
+
+
 
        
        
