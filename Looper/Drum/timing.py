@@ -45,8 +45,7 @@ def start_loop(instr):
     #set last time
     last = -1
 
-    #read bus 
-    output = readBus()
+    
 
     while True:
         
@@ -60,7 +59,9 @@ def start_loop(instr):
             start_time = time.time()
             elapsed_time = raw_time - start_time
             floor_time = math.floor(elapsed_time)
-        
+        #read bus 
+        output = readBus()
+        #if its high, play snare
         if (output == 1):
             play_region(instr, 1) 
 
@@ -97,30 +98,6 @@ mixer.update_channel_volume(0, 1.0)
 #start loop on sequencer
 
 start_loop(looper)
-
-
-
-   #if its less then the loop length, check if it is at a second 
-    # if round_elapse <= 0.0001:
-    #     #print(round(elapsed_time))
-    #     play_region(looper, 1) 
-        
-
-    # if round(elapsed_time) % 1.00 == 0.00:
-    #     play_region(looper, 2) 
-    # if (elapsed_time < length):
-    #     if ((round(elapsed_time - length), 2) % 1.00 == 0):
-    #         print(elapsed_time)
-
-    # looper.set_loop(0, '200')
-    # #set metronome
-    # # #if the 
-    # play_region(looper, 0) 
-    # print("ye")
-    # start_loop(looper)
-
-
-       
        
 
             
