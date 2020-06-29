@@ -34,7 +34,8 @@ def start_loop(instr):
     #set sequences
     kick = [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
     open_hat = [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0]
-    snare = [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]
+    # snare = [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]
+    snare = []
     instruments = [kick, open_hat, snare]
 
     #set loops, THIS IS FUCKING WEIRD 
@@ -61,12 +62,15 @@ def start_loop(instr):
             elapsed_time = raw_time - start_time
             floor_time = math.floor(elapsed_time)
             hit_time = 0
+            for x in range(len(snare)):
+                print(snare[x])
         #read bus t
         output = readBus()
         #if its high, play snare, wait a little before checking again
         if (output == 1 and (elapsed_time - hit_time) > 0.1):
             play_region(instr, 1)  
             hit_time = elapsed_time
+            snare.append(hit_time)
             print(output)
 
 
