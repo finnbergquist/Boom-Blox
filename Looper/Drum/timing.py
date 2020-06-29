@@ -1,9 +1,18 @@
 """Audio Looper driver method"""
 import time
+import smbus2
 # from gpiozero import MCP3008, PWMLED
 from drum_files import mix 
 from looper import Looper
 import math
+
+# set up the bus
+bus = smbus2.SMBus(1)
+address = 0x04
+
+def readBus():
+    data = bus.read_byte(address)
+    return data
 
 
 def timer(time, curr):
@@ -35,6 +44,10 @@ def start_loop(instr):
 
     #set last time
     last = -1
+
+    #read bus 
+    output = readBus()
+
     while True:
         
         #start really keeping track of time 
@@ -42,13 +55,14 @@ def start_loop(instr):
         elapsed_time = raw_time - start_time
         #*4 is to make floor_time 240 BPM instead of 60, give it 16 beats
         floor_time = math.floor(elapsed_time * 4)
+        #roll over if it goes over time
         if (floor_time >= float(length)):
             start_time = time.time()
             elapsed_time = raw_time - start_time
             floor_time = math.floor(elapsed_time)
         
-
-
+        if (output == 1):
+            play_region(instr, 1) 
 
         #when you are at an interval, update
         if (floor_time != last):
