@@ -31,18 +31,18 @@ def start_loop(instr):
     # mixer.update_channel_volume(1, pot1.value)
     
     start_time = time.time()
-    instr.set_loop(0, '666')
-    #set kick
-    instr.set_loop(1, '444')
-    #set snare
-    instr.set_loop(2, '555')
-    #print(output)
+    # instr.set_loop(0, '555')
+    # #set kick
+    # instr.set_loop(1, '444')
+    # #set snare
+    # instr.set_loop(2, '555')
+    # #print(output)
 
     while True:#audio loop
         #start the timer
         #OPTIMIZE THIS, THIS IS STARTING THE LOOP SLIGHTLY EARLY
         curr_time = time.time()
-        elapsed_time = round(curr_time - start_time, 2)
+        elapsed_time = curr_time - start_time
         BUFFER = 0.1
         length = 8    
         #check for new information    
@@ -52,7 +52,7 @@ def start_loop(instr):
 
         # #if the 
         if (output == 1):
-            play_region(instr, 2) 
+            play_region(instr, 0) 
             print("ye")
             time.sleep(1)
              
