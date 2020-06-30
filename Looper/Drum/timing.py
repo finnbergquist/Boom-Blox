@@ -41,10 +41,10 @@ def start_loop(instr):
                        3 : metro } 
 
     #set loops, THIS IS FUCKING WEIRD 
-    instr.set_loop(0, '100')
-    instr.set_loop(1, '200')
-    instr.set_loop(2, '300')
-    instr.set_loop(3, '400')
+    instr.set_loop(0, '300')
+    instr.set_loop(1, '100')
+    instr.set_loop(2, '400')
+    instr.set_loop(3, '200')
 
     #set last time and hit time
     last = -1
@@ -58,6 +58,7 @@ def start_loop(instr):
 
     while True:
         
+
         #start really keeping track of time 
         raw_time = time.time()       
         elapsed_time = raw_time - start_time
@@ -85,6 +86,9 @@ def start_loop(instr):
         recording = output[2]
         play = output[3]
 
+        #if play is off, stop 
+        if (play == 0):
+            break
 
         # #inst_state
         if (inst_state != last_state):
