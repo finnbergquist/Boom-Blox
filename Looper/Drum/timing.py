@@ -54,7 +54,7 @@ def start_loop(instr):
     recording = 0
     play = 0
     inst_state = 0
-    last_state = -3
+    last_state = 0
 
     while True:
         
