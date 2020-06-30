@@ -31,7 +31,7 @@ def start_loop(instr):
     #set sequences
     metro =      [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]
     kick =       [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
-    closed_hat = [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0]
+    closed_hat = [1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0]
     snare =      [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]
     empty_arr =  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
@@ -121,8 +121,10 @@ def start_loop(instr):
             if (snare[last] == 1):
                  play_region(looper, 1)
             if (closed_hat[last] == 1):
-                play_region(looper, 2)
+                play_region(looper, 3)
             
+
+# def record(instr):
 
 
         
