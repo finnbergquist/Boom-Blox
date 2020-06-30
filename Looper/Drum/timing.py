@@ -80,7 +80,7 @@ def start_loop(instr):
         if (inst_state != last_state):
             last_state = inst_state
             print(inst_state)
-            # play_region(instr, inst_state)
+            play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
         # if (hit == 1 and (elapsed_time - hit_time) > 0.3):
@@ -101,12 +101,12 @@ def start_loop(instr):
             #         print(instruments.index(x))
            
 
-            # if (kick[last] == 1):
-            #     play_region(looper, 2)
-            # if (snare[last] == 1):
-            #      play_region(looper, 1)
-            # if (open_hat[last] == 1):
-            #     play_region(looper, 0)
+            if (kick[last] == 1):
+                play_region(looper, 2)
+            if (snare[last] == 1):
+                 play_region(looper, 1)
+            if (open_hat[last] == 1):
+                play_region(looper, 0)
             
 
 
