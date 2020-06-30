@@ -1,6 +1,5 @@
 """Audio Looper driver method"""
 import time
-import smbus2
 # from gpiozero import MCP3008, PWMLED
 from drum_files import mix 
 from looper import Looper
@@ -62,13 +61,14 @@ def start_loop(instr):
             #         play_region(instr, instruments.index(x))
             #         print(instruments.index(x))
            
-
+            print(last)
+            
             if (kick[last] == 1):
-                play_region(looper, 2)
+                play_region(instr, 2)
             if (snare[last] == 1):
-                 play_region(looper, 1)
+                 play_region(instr, 1)
             if (open_hat[last] == 1):
-                play_region(looper, 0)
+                play_region(instr, 0)
             
 
 
