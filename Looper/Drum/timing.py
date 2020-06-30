@@ -6,10 +6,7 @@ from drum_files import mix
 from looper import Looper
 import math
 
-#vartiables 
-button = 0
-inst_state = 0
-last_state = -1
+
 # set up the bus
 bus = smbus2.SMBus(1)
 address = 0x04
@@ -51,7 +48,10 @@ def start_loop(instr):
     last = -1
     hit_time = 0
 
-    
+    #vartiables  for button and inst
+    button = 0
+    inst_state = 0
+    last_state = -1
 
     while True:
         
