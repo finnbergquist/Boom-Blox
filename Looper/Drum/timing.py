@@ -33,11 +33,15 @@ def start_loop(instr):
     start_time = time.time()
     length = 16
     #set sequences
-    kick = [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
-    open_hat = [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0]
-    snare = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    snare_hits = []
-    instruments = [kick, open_hat, snare]
+    metro =      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    kick =       [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
+    closed_hat = [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0]
+    snare =      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    
+    instrument_dict = {0 : metro, 
+                       1 : closed_hat,
+                       2 : snare,
+                       3 : kick } 
 
     #set loops, THIS IS FUCKING WEIRD 
     instr.set_loop(0, '100')
@@ -67,8 +71,11 @@ def start_loop(instr):
             elapsed_time = raw_time - start_time
             floor_time = math.floor(elapsed_time)
             hit_time = 0
+            #reset array we are recording               
+            instrument_dict[inst_state].clear()    
             # for x in range(len(snare)):
             #     print(snare[x])
+            
         #read bus t
         output = readBus()
         # #set vars
@@ -83,29 +90,31 @@ def start_loop(instr):
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
-        # if (hit == 1 and (elapsed_time - hit_time) > 0.3):
-        #     play_region(instr, 1)  
-        #     hit_time = elapsed_time
-        #     #snare_hits.append(math.floor(hit_time * 4))
-        #     if round(hit_time * 4) != length:
-        #         snare[round(hit_time * 4)] = 1
+        if (hit == 1 and (elapsed_time - hit_time) > 0.3):
+            play_region(instr,inst_state)  
+            hit_time = elapsed_time
+
+            #if we are recording, clear array and add to it 
+            if (recording == 1):                   
+                if round(hit_time * 4) != length:
+                    instrument_dict[inst_state][round(hit_time * 4)] = 1
             
 
 
         #when you are at an interval, update which instruments are playing
         # if (floor_time != last):
         #     last = floor_time
-            # for x in instruments:
-            #     if(x[last] == 1):
-            #         play_region(instr, instruments.index(x))
-            #         print(instruments.index(x))
+        #     for x in instruments:
+        #         if(x[last] == 1):
+        #             play_region(instr, instruments.index(x))
+        #             print(instruments.index(x))
            
 
             if (kick[last] == 1):
                 play_region(looper, 3)
             if (snare[last] == 1):
                  play_region(looper, 1)
-            if (open_hat[last] == 1):
+            if (closed_hat[last] == 1):
                 play_region(looper, 0)
             
 
