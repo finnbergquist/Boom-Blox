@@ -93,7 +93,7 @@ def start_loop(instr):
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and (elapsed_time - hit_time) > 0.3):
+        if (hit == 1 and (elapsed_time - hit_time) > 0.1):
             play_region(instr,inst_state)  
             hit_time = elapsed_time
 
@@ -105,8 +105,8 @@ def start_loop(instr):
 
 
         #when you are at an interval, update which instruments are playing
-        # if (floor_time != last):
-        #     last = floor_time
+        if (floor_time != last):
+            last = floor_time
         #     for x in instruments:
         #         if(x[last] == 1):
         #             play_region(instr, instruments.index(x))
