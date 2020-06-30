@@ -73,22 +73,23 @@ def start_loop(instr):
         output = readBus()
         # #set vars
         hit = output[0]
-        inst_state = output[1] + 3
+        inst_state = output[1] 
         recording = output[2]
-
-        #inst_state
-        if (inst_state != last_state and inst_state > 2):
-            last_state = inst_state
-            print(inst_state)
-            # play_region(instr, inst_state)
+        print(inst_state)
+        time.sleep(1)
+        # #inst_state
+        # if (inst_state != last_state and inst_state > 2):
+        #     last_state = inst_state
+        #     print(inst_state)
+        #     # play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and (elapsed_time - hit_time) > 0.3):
-            play_region(instr, 1)  
-            hit_time = elapsed_time
-            #snare_hits.append(math.floor(hit_time * 4))
-            if round(hit_time * 4) != length:
-                snare[round(hit_time * 4)] = 1
+        # if (hit == 1 and (elapsed_time - hit_time) > 0.3):
+        #     play_region(instr, 1)  
+        #     hit_time = elapsed_time
+        #     #snare_hits.append(math.floor(hit_time * 4))
+        #     if round(hit_time * 4) != length:
+        #         snare[round(hit_time * 4)] = 1
             
 
 
