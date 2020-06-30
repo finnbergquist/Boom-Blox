@@ -13,7 +13,11 @@ address = 0x04
 
 def readBus():
     data = bus.read_i2c_block_data(address, 0, 4)
-    return data
+    #if there is an error, return last 
+    if (data == [255,255,255,255]):
+        return [0,0,0,0]
+    else:
+        return data
 
         
 def play_region(instr, channel_number):
@@ -143,7 +147,7 @@ while True:
     #read bus t
     output = readBus()
     # #set vars
-
+    print(output)
     recording = output[2]
     play = output[3]
 
