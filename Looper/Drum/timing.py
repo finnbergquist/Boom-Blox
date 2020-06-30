@@ -41,10 +41,10 @@ def start_loop(instr):
                        3 : metro } 
 
     #set loops, THIS IS FUCKING WEIRD 
-    instr.set_loop(0, '400')
+    instr.set_loop(0, '100')
     instr.set_loop(1, '200')
-    instr.set_loop(2, '100')
-    instr.set_loop(3, '300')
+    instr.set_loop(2, '300')
+    instr.set_loop(3, '400')
 
     #set last time and hit time
     last = -1
