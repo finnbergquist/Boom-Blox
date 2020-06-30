@@ -12,7 +12,7 @@ bus = smbus2.SMBus(1)
 address = 0x04
 
 def readBus():
-    data = bus.read_i2c_block_data(address, 0, 3)
+    data = bus.read_i2c_block_data(address, 0, 16)
     return data
 
 
@@ -122,7 +122,10 @@ mixer = mix()
 mixer.update_channel_volume(0, 1.0)
 #start loop on sequencer
 
-start_loop(looper)
+# start_loop(looper)
+while True:
+    print(readBus())
+    time.sleep(1)
        
 
             
