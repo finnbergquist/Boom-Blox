@@ -12,7 +12,7 @@ bus = smbus2.SMBus(1)
 address = 0x04
 
 def readBus():
-    data = bus.read_i2c_block_data(address, 0, 16)
+    data = bus.read_i2c_block_data(address, 0, 3)
     return data
 
 
@@ -49,7 +49,7 @@ def start_loop(instr):
     hit_time = 0
 
     #vartiables  for button and inst
-    button = 0
+    recording = 0
     inst_state = 0
     last_state = -1
 
@@ -70,15 +70,15 @@ def start_loop(instr):
                 print(snare[x])
         #read bus t
         output = readBus()
-        print(output)
         # #set vars
         hit = output[0]
-        # button = output[2]
+        recording = output[2]
+        print(recording)
 
-        #inst_state
-        if (output[1] != last_state):
-            last_state = output[1]
-            print(last_state)
+        # #inst_state
+        # if (output[1] != last_state):
+        #     last_state = output[1]
+        #     print(last_state)
 
         #if its high, play snare, wait a little before checking again
         if (hit == 1 and (elapsed_time - hit_time) > 0.3):
@@ -90,21 +90,21 @@ def start_loop(instr):
             
 
 
-        #when you are at an interval, update
-        if (floor_time != last):
-            last = floor_time
+        #when you are at an interval, update which instruments are playing
+        # if (floor_time != last):
+        #     last = floor_time
             # for x in instruments:
             #     if(x[last] == 1):
             #         play_region(instr, instruments.index(x))
             #         print(instruments.index(x))
            
 
-            if (kick[last] == 1):
-                play_region(looper, 2)
-            if (snare[last] == 1):
-                 play_region(looper, 1)
-            if (open_hat[last] == 1):
-                play_region(looper, 0)
+            # if (kick[last] == 1):
+            #     play_region(looper, 2)
+            # if (snare[last] == 1):
+            #      play_region(looper, 1)
+            # if (open_hat[last] == 1):
+            #     play_region(looper, 0)
             
 
 
