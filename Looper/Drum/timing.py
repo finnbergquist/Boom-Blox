@@ -75,7 +75,7 @@ def start_loop(instr):
             instrument_dict[inst_state].clear()    
             # for x in range(len(snare)):
             #     print(snare[x])
-            
+
         #read bus t
         output = readBus()
         # #set vars
@@ -83,10 +83,11 @@ def start_loop(instr):
         inst_state = output[1] - 1 
         recording = output[2]
 
+
         # #inst_state
         if (inst_state != last_state):
             last_state = inst_state
-            print(inst_state)
+            print(        instrument_dict[inst_state])
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
