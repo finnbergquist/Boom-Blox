@@ -72,8 +72,11 @@ def start_loop(instr):
             elapsed_time = raw_time - start_time
             floor_time = math.floor(elapsed_time)
             hit_time = 0
-            #reset array we are recording               
-            instrument_dict[inst_state] = empty_arr   
+
+            #reset array we are recording 
+            if (recording == 1):              
+                instrument_dict[inst_state] = empty_arr   
+                print(instrument_dict[inst_state])
             # for x in range(len(snare)):
             #     print(snare[x])
 
@@ -89,7 +92,6 @@ def start_loop(instr):
         if (inst_state != last_state):
             last_state = inst_state
             curr_inst = instrument_dict[inst_state]
-            print(curr_inst)
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
