@@ -70,6 +70,7 @@ def start_loop(instr):
                 print(snare[x])
         #read bus t
         output = readBus()
+        print(output)
         #set vars
         hit = output[0]
         button = output[2]
