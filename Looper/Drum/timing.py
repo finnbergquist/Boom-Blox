@@ -87,7 +87,10 @@ def start_loop(instr):
         # #inst_state
         if (inst_state != last_state):
             last_state = inst_state
-            print(        instrument_dict[inst_state])
+            curr_inst = instrument_dict[inst_state]
+            if (curr_inst == None):
+                curr_inst = instrument_dict[inst_state]
+            print(curr_inst)
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
