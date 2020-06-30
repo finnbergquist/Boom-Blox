@@ -80,6 +80,7 @@ def start_loop(instr):
 
         #read bus t
         output = readBus()
+        print(output)
         # #set vars
         hit = output[0]
         inst_state = output[1] - 1 
@@ -119,7 +120,7 @@ def start_loop(instr):
             if (kick[last] == 1):
                 play_region(looper, 0)
             if (snare[last] == 1):
-                 play_region(looper, 1)
+                 play_region(looper, 2)
             if (closed_hat[last] == 1):
                 play_region(looper, 3)
             
