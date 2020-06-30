@@ -15,13 +15,6 @@ def readBus():
     data = bus.read_i2c_block_data(address, 0, 3)
     return data
 
-
-def timer(time, curr):
-    if (round(time) != curr):
-        curr = round(time)
-        return curr
-    else: 
-        return 
         
 def play_region(instr, channel_number):
     ##play loop from channel number 
@@ -91,7 +84,6 @@ def start_loop(instr):
         # #inst_state
         if (inst_state != last_state):
             last_state = inst_state
-            curr_inst = instrument_dict[inst_state]
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
