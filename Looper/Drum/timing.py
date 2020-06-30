@@ -102,7 +102,7 @@ def start_loop(instr):
            
 
             if (kick[last] == 1):
-                play_region(looper, 2)
+                play_region(looper, 3)
             if (snare[last] == 1):
                  play_region(looper, 1)
             if (open_hat[last] == 1):
