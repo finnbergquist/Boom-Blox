@@ -71,9 +71,9 @@ def start_loop(instr):
         #read bus t
         output = readBus()
         print(output)
-        #set vars
+        # #set vars
         hit = output[0]
-        button = output[2]
+        # button = output[2]
 
         #inst_state
         if (output[1] != last_state):
