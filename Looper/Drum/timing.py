@@ -33,10 +33,11 @@ def start_loop(instr):
     start_time = time.time()
     length = 16
     #set sequences
-    metro =      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    metro =      [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]
     kick =       [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
     closed_hat = [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0]
-    snare =      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    snare =      [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]
+    empty_arr =  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
     instrument_dict = {0 : metro, 
                        1 : closed_hat,
@@ -72,7 +73,7 @@ def start_loop(instr):
             floor_time = math.floor(elapsed_time)
             hit_time = 0
             #reset array we are recording               
-            instrument_dict[inst_state].clear()    
+            instrument_dict[inst_state] = empty_arr   
             # for x in range(len(snare)):
             #     print(snare[x])
 
@@ -88,8 +89,6 @@ def start_loop(instr):
         if (inst_state != last_state):
             last_state = inst_state
             curr_inst = instrument_dict[inst_state]
-            if (curr_inst == None):
-                curr_inst = instrument_dict[inst_state]
             print(curr_inst)
             play_region(instr, inst_state)
 
