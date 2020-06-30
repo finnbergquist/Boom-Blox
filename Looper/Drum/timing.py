@@ -20,6 +20,9 @@ def play_region(instr, channel_number):
     ##play loop from channel number 
     mixer.play(instr.get_loop(channel_number), channel_number)
 
+def empty(arr):
+    for x in range(len(arr)):
+        arr[x] = 0
 
 def start_loop(instr):
     #initial time
@@ -68,7 +71,7 @@ def start_loop(instr):
 
             #reset array we are recording 
             if (recording == 1):              
-                instrument_dict[inst_state] = empty_arr   
+                empty(instrument_dict[inst_state]) 
                 print(instrument_dict[inst_state])
             # for x in range(len(snare)):
             #     print(snare[x])
