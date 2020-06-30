@@ -6,12 +6,16 @@ from drum_files import mix
 from looper import Looper
 import math
 
+#vartiables 
+button = 0
+inst_state = 0
+last_state = -1
 # set up the bus
 bus = smbus2.SMBus(1)
 address = 0x04
 
 def readBus():
-    data = bus.read_byte(address)
+    data = bus.read_i2c_block_data(address, 0, 3)
     return data
 
 
@@ -66,8 +70,17 @@ def start_loop(instr):
                 print(snare[x])
         #read bus t
         output = readBus()
+        #set vars
+        hit = output[0]
+        button = output[2]
+
+        #inst_state
+        if (output[1] != last_state):
+            last_state = output[1]
+            print(last_state)
+
         #if its high, play snare, wait a little before checking again
-        if (output == 1 and (elapsed_time - hit_time) > 0.3):
+        if (hit == 1 and (elapsed_time - hit_time) > 0.3):
             play_region(instr, 1)  
             hit_time = elapsed_time
             #snare_hits.append(math.floor(hit_time * 4))
