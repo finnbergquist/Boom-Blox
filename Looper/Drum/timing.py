@@ -35,16 +35,16 @@ def start_loop(instr):
     snare =      [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]
     empty_arr =  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
-    instrument_dict = {0 : metro, 
-                       1 : closed_hat,
-                       2 : snare,
-                       3 : kick } 
+    instrument_dict = {0 : kick, 
+                       1 : snare,
+                       2 : closed_hat,
+                       3 : metro } 
 
     #set loops, THIS IS FUCKING WEIRD 
-    instr.set_loop(0, '100')
+    instr.set_loop(0, '400')
     instr.set_loop(1, '200')
-    instr.set_loop(2, '300')
-    instr.set_loop(3, '400')
+    instr.set_loop(2, '100')
+    instr.set_loop(3, '300')
 
     #set last time and hit time
     last = -1
@@ -72,7 +72,7 @@ def start_loop(instr):
             #reset array we are recording 
             if (recording == 1):              
                 empty(instrument_dict[inst_state]) 
-                print(instrument_dict[inst_state])
+                print(inst_state)
             # for x in range(len(snare)):
             #     print(snare[x])
 
@@ -111,11 +111,11 @@ def start_loop(instr):
            
 
             if (kick[last] == 1):
-                play_region(looper, 3)
+                play_region(looper, 0)
             if (snare[last] == 1):
                  play_region(looper, 1)
             if (closed_hat[last] == 1):
-                play_region(looper, 0)
+                play_region(looper, 2)
             
 
 
