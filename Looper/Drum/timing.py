@@ -67,16 +67,18 @@ def start_loop(instr):
             elapsed_time = raw_time - start_time
             floor_time = math.floor(elapsed_time)
             hit_time = 0
-            for x in range(len(snare)):
-                print(snare[x])
+            # for x in range(len(snare)):
+            #     print(snare[x])
         #read bus t
         output = readBus()
         # #set vars
         hit = output[0]
         inst_state = output[1] 
         recording = output[2]
-        print(inst_state)
-        time.sleep(1)
+
+        if (inst_state > 2):
+            print(inst_state)
+            time.sleep(1)
         # #inst_state
         # if (inst_state != last_state and inst_state > 2):
         #     last_state = inst_state
