@@ -16,7 +16,7 @@ def start_loop(instr):
     start_time = time.time()
     length = 16
     #set sequences
-    kick = [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
+    kick = [1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0]
     open_hat = [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0]
     snare = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     snare_hits = []
@@ -61,7 +61,7 @@ def start_loop(instr):
             #         play_region(instr, instruments.index(x))
             #         print(instruments.index(x))
            
-            print(last)
+            print(kick[last] == 1)
             
             if (kick[last] == 1):
                 play_region(instr, 2)
