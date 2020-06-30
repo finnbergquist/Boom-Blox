@@ -12,7 +12,7 @@ bus = smbus2.SMBus(1)
 address = 0x04
 
 def readBus():
-    data = bus.read_i2c_block_data(address, 0, 3)
+    data = bus.read_i2c_block_data(address, 0, 4)
     return data
 
         
@@ -52,6 +52,7 @@ def start_loop(instr):
 
     #vartiables  for button and inst
     recording = 0
+    play = 0
     inst_state = 0
     last_state = -3
 
@@ -82,6 +83,7 @@ def start_loop(instr):
         hit = output[0]
         inst_state = output[1] - 1 
         recording = output[2]
+        play = output[3]
 
 
         # #inst_state
@@ -121,19 +123,26 @@ def start_loop(instr):
 
         
 
-
+while True:
+    
         
+    #settig up channel data
+    TEMPO = 5    #how many instruments
+    CHANNELS = 4
+    looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
+    mixer = mix()
+    mixer.update_channel_volume(0, 1.0)
 
+    #read bus t
+    output = readBus()
+    # #set vars
 
-#settig up channel data
-TEMPO = 5    #how many instruments
-CHANNELS = 4
-looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
-mixer = mix()
-mixer.update_channel_volume(0, 1.0)
-#start loop on sequencer
+    recording = output[2]
+    play = output[3]
 
-start_loop(looper)
+    #if play is triggered start loop on sequencer
+    if (play == 1):
+        start_loop(looper)
 
        
 
