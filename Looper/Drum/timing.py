@@ -75,19 +75,20 @@ def start_loop(instr):
         hit = output[0]
         inst_state = output[1] - 1
         recording = output[2]
-        print(inst_state)
+
         #inst_state
         if (inst_state != last_state):
             last_state = inst_state
+            print(inst_state)
             play_region(instr, inst_state)
 
-        # #if its high, play snare, wait a little before checking again
-        # if (hit == 1 and (elapsed_time - hit_time) > 0.3):
-        #     play_region(instr, 1)  
-        #     hit_time = elapsed_time
-        #     #snare_hits.append(math.floor(hit_time * 4))
-        #     if round(hit_time * 4) != length:
-        #         snare[round(hit_time * 4)] = 1
+        #if its high, play snare, wait a little before checking again
+        if (hit == 1 and (elapsed_time - hit_time) > 0.3):
+            play_region(instr, 1)  
+            hit_time = elapsed_time
+            #snare_hits.append(math.floor(hit_time * 4))
+            if round(hit_time * 4) != length:
+                snare[round(hit_time * 4)] = 1
             
 
 
