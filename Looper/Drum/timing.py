@@ -157,6 +157,7 @@ while True:
     if (play == 1 and elapse > 0.5):
         start_loop(looper)
         wait_time = start_loop(looper)
+        print(wait_time)
 
        
     
