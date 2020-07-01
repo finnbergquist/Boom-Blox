@@ -129,7 +129,6 @@ def start_loop(instr):
                  play_region(looper, 2)
             if (closed_hat[last] == 1):
                 play_region(looper, 3)
-            
         #make first false
         first = False
 # def record(instr):
@@ -156,7 +155,6 @@ while True:
     print(elapse)
     #if play is triggered start loop on sequencer
     if (play == 1 and elapse > 0.5):
-        start_loop(looper)
         wait_time = start_loop(looper)
 
        
