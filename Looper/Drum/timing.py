@@ -150,13 +150,12 @@ while True:
     mixer.update_channel_volume(0, 1.0)
     #read bus t
     output = readBus()
-    print(output)
     # #set vars
     recording = output[2]
     play = output[3]
 
     #if play is triggered start loop on sequencer
-    if (play == 1 and elapse > 0.1):
+    if (play == 1 and elapse > 0.5):
         wait_time = start_loop(looper)
 
        
