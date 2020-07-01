@@ -57,6 +57,7 @@ def start_loop(instr):
     #vartiables  for button and inst
     recording = 0
     play = 0
+    play_time = time.time()
     inst_state = 0
     last_state = 0
 
@@ -92,7 +93,7 @@ def start_loop(instr):
         play = output[3]
 
         #if play is off, stop and its been a lil
-        if (play == 1 and floor_time > 0):
+        if (play == 1 and elapsed_time - play_time > 0.5):
             break
 
         # #inst_state
