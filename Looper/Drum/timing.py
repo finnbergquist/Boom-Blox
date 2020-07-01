@@ -57,6 +57,7 @@ def start_loop(instr):
     #vartiables  for button and inst
     recording = 0
     play = 0
+    play_time = time.time()
     inst_state = 0
     last_state = 0
     first = True
@@ -93,13 +94,13 @@ def start_loop(instr):
         play = output[3]
         #if play is off, stop and its been a lil, if its the first time and its been more
         #than a second or its not the first time and play is pressed, STOP the loop
-        if (play == 1 and elapsed_time > .5 and first == True) or (play ==1 and first == False):
+        if (play == 1 and (raw_time - play_time > .5)):
             print("ehere")
             return time.time()
             break
 
         # #inst_state
-        if (inst_state != last_state and first == True):
+        if (inst_state != last_state and first == False):
             last_state = inst_state
             play_region(instr, inst_state)
 
