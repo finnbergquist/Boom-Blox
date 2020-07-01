@@ -91,8 +91,9 @@ def start_loop(instr):
         inst_state = output[1] - 1 
         recording = output[2]
         play = output[3]
-        #if play is off, stop and its been a lil
-        if (play == 1 and elapsed_time > .5 and first == True):
+        #if play is off, stop and its been a lil, if its the first time and its been more
+        #than a second or its not the first time and play is pressed, STOP the loop
+        if (play == 1 and ((elapsed_time > .5 and first) == True or first == False)):
             print("ehere")
             return time.time()
             break
