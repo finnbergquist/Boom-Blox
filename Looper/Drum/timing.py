@@ -85,15 +85,16 @@ def start_loop(instr):
 
         #read bus t
         output = readBus()
-        print(output)
+        # print(output)
         # #set vars
         hit = output[0]
         inst_state = output[1] - 1 
         recording = output[2]
         play = output[3]
-
+        print(play)
         #if play is off, stop and its been a lil
         if (play == 1 and elapsed_time - play_time > 1):
+            print("ehere")
             break
 
         # #inst_state
