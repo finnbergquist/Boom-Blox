@@ -59,9 +59,10 @@ def start_loop(instr):
     play = 0
     inst_state = 0
     last_state = 0
+    first = True
 
     while True:
-        
+               
 
         #start really keeping track of time 
         raw_time = time.time()       
@@ -91,12 +92,12 @@ def start_loop(instr):
         recording = output[2]
         play = output[3]
         #if play is off, stop and its been a lil
-        if (play == 1 and elapsed_time > .5):
+        if (play == 1 and elapsed_time > .5 and first == True):
             print("ehere")
             break
 
         # #inst_state
-        if (inst_state != last_state):
+        if (inst_state != last_state and first == True):
             last_state = inst_state
             play_region(instr, inst_state)
 
@@ -155,7 +156,7 @@ while True:
         start_loop(looper)
 
        
-    time.sleep(1)
+    time.sleep(0.5)
 
             
     
