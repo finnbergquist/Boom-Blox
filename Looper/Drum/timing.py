@@ -94,6 +94,7 @@ def start_loop(instr):
         #if play is off, stop and its been a lil
         if (play == 1 and elapsed_time > .5 and first == True):
             print("ehere")
+            return time.time()
             break
 
         # #inst_state
@@ -145,7 +146,7 @@ while True:
     looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
     mixer = mix()
     mixer.update_channel_volume(0, 1.0)
-    print(elapse)
+    print
     #read bus t
     output = readBus()
     # #set vars
@@ -155,9 +156,10 @@ while True:
     #if play is triggered start loop on sequencer
     if (play == 1 and elapse > 0.5):
         start_loop(looper)
+        wait_time = start_loop(looper)
 
        
-    wait_time = time.time()
+    
 
             
     
