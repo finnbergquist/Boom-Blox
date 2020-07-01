@@ -85,7 +85,7 @@ def start_loop(instr):
 
         #read bus t
         output = readBus()
-        # print(output)
+
         # #set vars
         hit = output[0]
         inst_state = output[1] - 1 
