@@ -90,7 +90,6 @@ def start_loop(instr):
         inst_state = output[1] - 1 
         recording = output[2]
         play = output[3]
-        print(play_time)
         #if play is off, stop and its been a lil
         if (play == 1 and elapsed_time > .5):
             print("ehere")
@@ -156,6 +155,7 @@ while True:
         start_loop(looper)
 
        
+    time.sleep(1)
 
             
     
