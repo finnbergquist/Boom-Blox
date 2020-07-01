@@ -91,8 +91,8 @@ def start_loop(instr):
         recording = output[2]
         play = output[3]
 
-        #if play is off, stop 
-        if (play == 0):
+        #if play is off, stop and its been a lil
+        if (play == 1 and floor_time > 0):
             break
 
         # #inst_state
@@ -147,7 +147,6 @@ while True:
     #read bus t
     output = readBus()
     # #set vars
-    print(output)
     recording = output[2]
     play = output[3]
 
