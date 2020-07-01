@@ -138,14 +138,14 @@ def start_loop(instr):
 wait_time = time.time()
 while True:
     
-    elapse = time.time - wait_time
+    elapse = time.time() - wait_time
     #settig up channel data
     TEMPO = 5    #how many instruments
     CHANNELS = 4
     looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
     mixer = mix()
     mixer.update_channel_volume(0, 1.0)
-
+    print(elapse)
     #read bus t
     output = readBus()
     # #set vars
