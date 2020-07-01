@@ -93,7 +93,7 @@ def start_loop(instr):
         play = output[3]
 
         #if play is off, stop and its been a lil
-        if (play == 1 and elapsed_time - play_time > 0.5):
+        if (play == 1 and elapsed_time - play_time > 1):
             break
 
         # #inst_state
