@@ -134,10 +134,11 @@ def start_loop(instr):
 
 
         
-
+#wait time for play check
+wait_time = time.time()
 while True:
     
-        
+    elapse = time.time - wait_time
     #settig up channel data
     TEMPO = 5    #how many instruments
     CHANNELS = 4
@@ -152,11 +153,11 @@ while True:
     play = output[3]
 
     #if play is triggered start loop on sequencer
-    if (play == 1):
+    if (play == 1 and elapse > 0.5):
         start_loop(looper)
 
        
-    time.sleep(0.5)
+    wait_time = time.time()
 
             
     
