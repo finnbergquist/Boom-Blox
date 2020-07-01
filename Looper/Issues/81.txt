@@ -1,0 +1,5 @@
+SMBUS 
+
+The SMBUS remote I/O errors are often related to the code on the Arduino.
+It seems like sometimes, dealing with actuators and sensors fucks with the bus.
+The Neopixel code was interfering. 

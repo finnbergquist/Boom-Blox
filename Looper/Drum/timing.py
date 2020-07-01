@@ -58,7 +58,7 @@ def start_loop(instr):
     recording = 0
     play = 0
     #to measure how far from the loop starting we are
-    #important for first instr hit and noise checking 
+    #important for first instr hit and noise checking   
     play_time = time.time()
     inst_state = 0
     last_state = 0
@@ -148,15 +148,14 @@ while True:
     looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
     mixer = mix()
     mixer.update_channel_volume(0, 1.0)
-    print
     #read bus t
     output = readBus()
     # #set vars
     recording = output[2]
     play = output[3]
-    print(elapse)
+
     #if play is triggered start loop on sequencer
-    if (play == 1 and elapse > 0.1):
+    if (play == 1 and elapse > 0.5):
         wait_time = start_loop(looper)
 
        
