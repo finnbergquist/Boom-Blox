@@ -124,16 +124,15 @@ def play_loop(instr):
                 play_region(looper, 3)
 
 def record_loop(instr):
-    play_region(inst, 4)
+    play_region(instr, 0)
     time.sleep(3)
     idle(instr)
 
 
 
-
 def idle(instr):
     last = -1
-#wait time for play check
+#   wait time for play check
     wait_time = time.time()
 
     while True:
@@ -184,11 +183,11 @@ instrument_dict = {0 : kick,
                     3 : metro } 
 
 #set loops, THIS IS FUCKING WEIRD 
-looper.set_loop(0, '300')
+looper.set_loop(0, '500')
 looper.set_loop(1, '100')
 looper.set_loop(2, '400')
 looper.set_loop(3, '200')
-looper.set_loop(4, '500')
+looper.set_loop(4, '300')
 #for inst check
 
 idle(looper)
