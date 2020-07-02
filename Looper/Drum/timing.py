@@ -19,6 +19,10 @@ def readBus():
     else:
         return data
 
+def writeBus(value):
+    bus.write_byte(address, value)
+    # bus.write_byte_data(address, 0, value)
+    return -1
         
 def play_region(instr, channel_number):
     ##play loop from channel number 
@@ -96,7 +100,6 @@ def start_loop(instr):
         #if play is off, stop and its been a lil, if its the first time and its been more
         #than a second or its not the first time and play is pressed, STOP the loop
         if (play == 1 and (raw_time - play_time > .5)):
-            print("ehere")
             return time.time()
             break
 
@@ -120,6 +123,7 @@ def start_loop(instr):
         #when you are at an interval, update which instruments are playing
         if (floor_time != last):
             last = floor_time
+            writeBus(last)
         #     for x in instruments:
         #         if(x[last] == 1):
         #             play_region(instr, instruments.index(x))
