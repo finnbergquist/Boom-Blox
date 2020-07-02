@@ -124,7 +124,7 @@ def play_loop(instr):
                 play_region(looper, 3)
 
 def record_loop(instr):
-    play_region(instr, 0)
+    play_region(instr, 4) 
     time.sleep(3)
     idle(instr)
 
@@ -166,7 +166,7 @@ def idle(instr):
 #set sequences
 
 TEMPO = 5    #how many instruments
-CHANNELS = 4
+CHANNELS = 5
 looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
 mixer = mix()
 mixer.update_channel_volume(0, 1.0)
