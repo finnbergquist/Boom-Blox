@@ -35,7 +35,8 @@ class mix:
         "100" : pygame.mixer.Sound("drum_audio/kick.ogg"),
         "200" : pygame.mixer.Sound("drum_audio/Snare_Hollow.ogg"),
         "300" : pygame.mixer.Sound("drum_audio/closed_hat.ogg"),
-        "400" : pygame.mixer.Sound("drum_audio/low_metro.ogg")
+        "400" : pygame.mixer.Sound("drum_audio/open_hat.ogg"), 
+        "500" : pygame.mixer.Sound("drum_audio/metronome.ogg")
 
     }
 

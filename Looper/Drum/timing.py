@@ -125,6 +125,7 @@ def play_loop(instr):
 
 # def record_loop(instr):
 
+
 def idle(instr):
     last = -1
 #wait time for play check
