@@ -191,7 +191,7 @@ def record_loop(instr):
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and (elapsed_time - hit_time) > 0.08):
+        if (hit == 1 and (elapsed_time - hit_time) > 0.05):
             play_region(instr,inst_state)  
             hit_time = elapsed_time
 
