@@ -90,7 +90,7 @@ def play_loop(instr):
             break
 
         # #inst_state
-        if (inst_state != last_state and (raw_time - play_time > .05)):
+        if (inst_state != last_state and (raw_time - play_time > .1)):
             last_state = inst_state
             play_region(instr, inst_state)
 
@@ -174,12 +174,12 @@ def record_loop(instr):
         play = output[3]
         #if play is off, stop and its been a lil, if its the first time and its been more
         #than a second or its not the first time and play is pressed, STOP the loop
-        if (recording == 1 and (raw_time -record_time > .5)):
+        if (recording == 0 and (raw_time -record_time > .5)):
             return time.time()
             break
 
         # #inst_state
-        if (inst_state != last_state and (raw_time - record_time > .05)):
+        if (inst_state != last_state and (raw_time - record_time > .1)):
             last_state = inst_state
             play_region(instr, inst_state)
 
@@ -225,7 +225,7 @@ def idle(instr):
         recording = output[2]
         play = output[3]
 
-        if (inst != last and (elapse > .05)):
+        if (inst != last and (elapse > .1)):
                 wait_time = time.time()
                 last = inst              
                 play_region(instr, inst)
