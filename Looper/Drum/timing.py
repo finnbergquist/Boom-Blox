@@ -159,8 +159,8 @@ def idle(instr):
             record_loop(looper)    
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and (elapse - hit_time) > 0.05):
-            play_region(instr,inst)  
+        if (hit == 1 and (elapse - hit_time) > 0.1):
+            play_region(instr,last)  
             hit_time = elapse
 
 
