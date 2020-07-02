@@ -201,9 +201,11 @@ def record_loop(instr):
 
 
         #when you are at an interval, update which instruments are playing
-        if (floor_time != last):
-            play_region(instr, 4)
+        if (floor_time != last):           
             last = floor_time
+            #play metro
+            if (last % 2 == 0):
+                play_region(instr, 4)
            
            #if any of the hits are true, hit em 
             if (kick[last] == 1):
