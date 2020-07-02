@@ -147,12 +147,12 @@ def record_loop(instr):
     #important for first instr hit and noise checking   
     record_time = time.time()
     inst_state = 0
-    last_state = 0
 
 
 
     #empty the array we are working with 
     empty(instrument_dict[readBus()[1] - 1]) 
+    last_state = readBus()[1] - 1
 
     while True:
                
