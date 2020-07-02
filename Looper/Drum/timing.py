@@ -134,6 +134,7 @@ def idle(instr):
     last = -1
 #   wait time for play check
     wait_time = time.time()
+    hit_time = 0
 
     while True:
 
@@ -143,9 +144,11 @@ def idle(instr):
         #read bus t
         output = readBus()
         # #set vars
+        hit = output[0]
         inst = output[1] - 1 
         recording = output[2]
         play = output[3]
+
         if (inst != last and (elapse > .1)):
                 wait_time = time.time()
                 last = inst              
@@ -155,8 +158,14 @@ def idle(instr):
         if (play == 1 and elapse > 0.5):
             wait_time = play_loop(instr)
         
-        elif (recording == 1):
-            record_loop(looper)
+        if (recording == 1):
+            record_loop(looper)    
+
+        #if its high, play snare, wait a little before checking again
+        if (hit == 1 and (elapse - hit_time) > 0.1):
+            play_region(instr,inst)  
+            hit_time = elapse
+
 
 
     
