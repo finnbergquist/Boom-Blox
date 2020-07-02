@@ -1,4 +1,8 @@
-"""Audio Looper driver method"""
+"""FRAMING: 
+    Few different functions for different mode. Play mode, record mode, idle mode. 
+    Different objects for everyhting. 
+
+"""
 import time
 import smbus2
 # from gpiozero import MCP3008, PWMLED
@@ -32,7 +36,7 @@ def empty(arr):
     for x in range(len(arr)):
         arr[x] = 0
 
-def start_loop(instr):
+def play_loop(instr):
     #initial time
     start_time = time.time()
     length = 16   
@@ -80,8 +84,6 @@ def start_loop(instr):
         inst_state = output[1] - 1 
         recording = output[2]
         play = output[3]
-        #write the instrument state to the bus
-        writeBus(inst_state)
         #if play is off, stop and its been a lil, if its the first time and its been more
         #than a second or its not the first time and play is pressed, STOP the loop
         if (play == 1 and (raw_time - play_time > .5)):
@@ -121,6 +123,34 @@ def start_loop(instr):
             if (closed_hat[last] == 1):
                 play_region(looper, 3)
 
+# def record_loop(instr):
+
+def idle(instr):
+    last = -1
+#wait time for play check
+    wait_time = time.time()
+
+    while True:
+
+        
+        elapse = time.time() - wait_time
+        #settig up channel data    
+        #read bus t
+        output = readBus()
+        # #set vars
+        inst = output[1] - 1 
+        recording = output[2]
+        play = output[3]
+        if (inst != last and (elapse > .5)):
+                last = inst
+                play_region(looper, inst)
+
+        #if play is triggered start loop on sequencer
+        if (play == 1 and elapse > 0.5):
+            wait_time = play_loop(looper)
+
+
+    
 # def record(instr):
 
 #BOOT UP STUFF, THIS SHOULD BE IN ITS OWN FILE 
@@ -149,28 +179,8 @@ looper.set_loop(1, '100')
 looper.set_loop(2, '400')
 looper.set_loop(3, '200')
 #for inst check
-last = -1
-#wait time for play check
-wait_time = time.time()
 
-while True:
-    
-    elapse = time.time() - wait_time
-    #settig up channel data    
-    #read bus t
-    output = readBus()
-    # #set vars
-    inst = output[1] - 1 
-    recording = output[2]
-    play = output[3]
-    if (inst != last and (elapse > .5)):
-            last = inst
-            play_region(looper, inst)
-
-    #if play is triggered start loop on sequencer
-    if (play == 1 and elapse > 0.5):
-        wait_time = start_loop(looper)
-
+idle(looper)
        
     
 
