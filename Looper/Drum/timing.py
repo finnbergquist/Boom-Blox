@@ -181,6 +181,16 @@ def record_loop(instr):
         play = output[3]
         #if play is off, stop and its been a lil, if its the first time and its been more
         #than a second or its not the first time and play is pressed, STOP the loop
+        
+        if (hit == 1 and (elapsed_time - hit_time) > 0.08):
+            play_region(instr,inst_state)  
+            hit_time = elapsed_time
+
+            # #if we are recording, clear array and add to it                  
+            if round(hit_time * 4) != length:
+                instrument_dict[inst_state][round(hit_time * 4)] = 1
+            
+
         if (recording == 0 and (raw_time -record_time > .5)):
             return time.time()
             break
@@ -191,15 +201,7 @@ def record_loop(instr):
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and (elapsed_time - hit_time) > 0.08):
-            play_region(instr,inst_state)  
-            hit_time = elapsed_time
-
-            # #if we are recording, clear array and add to it                  
-            if round(hit_time * 4) != length:
-                instrument_dict[inst_state][round(hit_time * 4)] = 1
-            
-
+        
 
         #when you are at an interval, update which instruments are playing
         if (floor_time != last):           
