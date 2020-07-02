@@ -165,7 +165,7 @@ def record_loop(instr):
         #roll over if it goes over time
         if (floor_time >= float(length)):
 
-            print(instrument_dict[inst_state])
+            #print(instrument_dict[inst_state])
             start_time = time.time()
             elapsed_time = raw_time - start_time
             floor_time = math.floor(elapsed_time)
@@ -191,7 +191,7 @@ def record_loop(instr):
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and (elapsed_time - hit_time) > 0.05):
+        if (hit == 1 and (elapsed_time - hit_time) > 0.08):
             play_region(instr,inst_state)  
             hit_time = elapsed_time
 
@@ -253,7 +253,7 @@ def idle(instr):
 
         #if its high, play snare, wait a little before checking again
         if (hit == 1 and hit_elapse > 0.1):
-            print(last)
+            #print(last)
             play_region(instr,last) 
             hit_wait = time.time() 
 
