@@ -72,7 +72,6 @@ def play_loop(instr):
             #reset array we are recording 
             if (recording == 1):              
                 empty(instrument_dict[inst_state]) 
-                print(inst_state)
             # for x in range(len(snare)):
             #     print(snare[x])
 
@@ -91,7 +90,7 @@ def play_loop(instr):
             break
 
         # #inst_state
-        if (inst_state != last_state and (raw_time - play_time > .5)):
+        if (inst_state != last_state and (raw_time - play_time > .05)):
             last_state = inst_state
             play_region(instr, inst_state)
 
@@ -124,9 +123,87 @@ def play_loop(instr):
                 play_region(looper, 3)
 
 def record_loop(instr):
-    play_region(instr, 4) 
-    time.sleep(3)
-    idle(instr)
+
+    
+    #initial time
+    start_time = time.time()
+    length = 16   
+
+    #set last time and hit time
+    last = -1
+    hit_time = 0
+
+    #vartiables  for button and inst
+    recording = 0
+    play = 0
+    #to measure how far from the loop starting we are
+    #important for first instr hit and noise checking   
+    record_time = time.time()
+    inst_state = 0
+    last_state = 0
+
+    #play metronome
+    play_region(instr, 4)
+    empty(instrument_dict[inst_state]) 
+
+    while True:
+               
+
+        #start really keeping track of time 
+        raw_time = time.time()       
+        elapsed_time = raw_time - start_time
+        #*4 is to make floor_time 240 BPM instead of 60, give it 16 beats
+        floor_time = math.floor(elapsed_time * 4)
+        #roll over if it goes over time
+        if (floor_time >= float(length)):
+            #play metronome
+            print(instrument_dict[inst_state])
+            play_region(instr, 4)
+            start_time = time.time()
+            elapsed_time = raw_time - start_time
+            floor_time = math.floor(elapsed_time)
+            hit_time = 0
+
+
+        #read bus t
+        output = readBus()
+        # #set vars
+        hit = output[0]
+        inst_state = output[1] - 1 
+        recording = output[2]
+        play = output[3]
+        #if play is off, stop and its been a lil, if its the first time and its been more
+        #than a second or its not the first time and play is pressed, STOP the loop
+        if (recording == 1 and (raw_time -record_time > .5)):
+            return time.time()
+            break
+
+        # #inst_state
+        if (inst_state != last_state and (raw_time - record_time > .05)):
+            last_state = inst_state
+            play_region(instr, inst_state)
+
+        #if its high, play snare, wait a little before checking again
+        if (hit == 1 and (elapsed_time - hit_time) > 0.05):
+            play_region(instr,inst_state)  
+            hit_time = elapsed_time
+
+            # #if we are recording, clear array and add to it                  
+            if round(hit_time * 4) != length:
+                instrument_dict[inst_state][round(hit_time * 4)] = 1
+            
+
+
+        #when you are at an interval, update which instruments are playing
+        if (floor_time != last):
+            last = floor_time
+           
+            # if (kick[last] == 1):
+            #     play_region(looper, 0)
+            # if (snare[last] == 1):
+            #      play_region(looper, 2)
+            # if (closed_hat[last] == 1):
+            #     play_region(looper, 3)
 
 def idle(instr):
     last = -1
@@ -148,7 +225,7 @@ def idle(instr):
         recording = output[2]
         play = output[3]
 
-        if (inst != last and (elapse > .1)):
+        if (inst != last and (elapse > .05)):
                 wait_time = time.time()
                 last = inst              
                 play_region(instr, inst)
@@ -161,7 +238,7 @@ def idle(instr):
             record_loop(looper)    
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and hit_elapse > 0.1):
+        if (hit == 1 and hit_elapse > 0.05):
             print(last)
             play_region(instr,last) 
             hit_wait = time.time() 
