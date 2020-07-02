@@ -126,7 +126,7 @@ def play_loop(instr):
 
 def record_loop(instr):
 
-    hit_time = 0
+    hit_time = -1
 
     #play metronome
     for x in range(4):
