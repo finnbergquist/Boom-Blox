@@ -143,7 +143,6 @@ def record_loop(instr):
     last_state = 0
 
     #play metronome
-    play_region(instr, 4)
     empty(instrument_dict[inst_state]) 
 
     while True:
@@ -158,7 +157,6 @@ def record_loop(instr):
         if (floor_time >= float(length)):
             #play metronome
             print(instrument_dict[inst_state])
-            play_region(instr, 4)
             start_time = time.time()
             elapsed_time = raw_time - start_time
             floor_time = math.floor(elapsed_time)
@@ -196,6 +194,7 @@ def record_loop(instr):
 
         #when you are at an interval, update which instruments are playing
         if (floor_time != last):
+            play_region(instr, 4)
             last = floor_time
            
             # if (kick[last] == 1):
