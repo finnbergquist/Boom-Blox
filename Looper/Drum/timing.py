@@ -35,24 +35,7 @@ def empty(arr):
 def start_loop(instr):
     #initial time
     start_time = time.time()
-    length = 16
-    #set sequences
-    metro =      [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]
-    kick =       [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
-    closed_hat = [0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0]
-    snare =      [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]
-    empty_arr =  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    
-    instrument_dict = {0 : kick, 
-                       1 : snare,
-                       2 : closed_hat,
-                       3 : metro } 
-
-    #set loops, THIS IS FUCKING WEIRD 
-    instr.set_loop(0, '300')
-    instr.set_loop(1, '100')
-    instr.set_loop(2, '400')
-    instr.set_loop(3, '200')
+    length = 16   
 
     #set last time and hit time
     last = -1
@@ -140,24 +123,49 @@ def start_loop(instr):
 
 # def record(instr):
 
+#BOOT UP STUFF, THIS SHOULD BE IN ITS OWN FILE 
+#set sequences
 
-        
+TEMPO = 5    #how many instruments
+CHANNELS = 4
+looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
+mixer = mix()
+mixer.update_channel_volume(0, 1.0)
+
+metro =      [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]
+kick =       [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
+closed_hat = [0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0]
+snare =      [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]
+empty_arr =  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    
+instrument_dict = {0 : kick, 
+                    1 : snare,
+                    2 : closed_hat,
+                    3 : metro } 
+
+#set loops, THIS IS FUCKING WEIRD 
+looper.set_loop(0, '300')
+looper.set_loop(1, '100')
+looper.set_loop(2, '400')
+looper.set_loop(3, '200')
+#for inst check
+last = -1
 #wait time for play check
 wait_time = time.time()
+
 while True:
     
     elapse = time.time() - wait_time
-    #settig up channel data
-    TEMPO = 5    #how many instruments
-    CHANNELS = 4
-    looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
-    mixer = mix()
-    mixer.update_channel_volume(0, 1.0)
+    #settig up channel data    
     #read bus t
     output = readBus()
     # #set vars
+    inst = output[1] - 1 
     recording = output[2]
     play = output[3]
+    if (inst != last and (elapse > .5)):
+            last = inst
+            play_region(looper, inst)
 
     #if play is triggered start loop on sequencer
     if (play == 1 and elapse > 0.5):
