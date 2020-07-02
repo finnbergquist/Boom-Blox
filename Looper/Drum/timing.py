@@ -97,6 +97,8 @@ def start_loop(instr):
         inst_state = output[1] - 1 
         recording = output[2]
         play = output[3]
+        #write the instrument state to the bus
+        writeBus(inst_state)
         #if play is off, stop and its been a lil, if its the first time and its been more
         #than a second or its not the first time and play is pressed, STOP the loop
         if (play == 1 and (raw_time - play_time > .5)):
@@ -114,7 +116,7 @@ def start_loop(instr):
             hit_time = elapsed_time
 
             # #if we are recording, clear array and add to it 
-            # if (recording == 1):                   
+              # if (recording == 1):                   
             #     if round(hit_time * 4) != length:
             #         instrument_dict[inst_state][round(hit_time * 4)] = 1
             
@@ -123,7 +125,6 @@ def start_loop(instr):
         #when you are at an interval, update which instruments are playing
         if (floor_time != last):
             last = floor_time
-            writeBus(last)
         #     for x in instruments:
         #         if(x[last] == 1):
         #             play_region(instr, instruments.index(x))
