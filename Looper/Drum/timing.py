@@ -142,8 +142,9 @@ def idle(instr):
         inst = output[1] - 1 
         recording = output[2]
         play = output[3]
-        if (inst != last and (elapse > .5)):
-                last = inst
+        if (inst != last and (elapse > .1)):
+                wait_time = time.time()
+                last = inst              
                 play_region(looper, inst)
 
         #if play is triggered start loop on sequencer
