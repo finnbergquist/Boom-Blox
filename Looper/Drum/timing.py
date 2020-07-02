@@ -151,7 +151,7 @@ def record_loop(instr):
 
 
     #empty the array we are working with 
-    empty(instrument_dict[inst_state]) 
+    empty(instrument_dict[readBus()[1] - 1]) 
 
     while True:
                
