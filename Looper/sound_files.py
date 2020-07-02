@@ -1,5 +1,6 @@
 import pygame
 from pygame import mixer
+from gpiozero import MCP3008
 
 class mix:
     pygame.mixer.pre_init(22050, -16, 2, 256)#22050=default frequecy,-16=size(16 signed bits per audio sample
@@ -11,6 +12,8 @@ class mix:
     #initialize channels in the mixer
     channels = [pygame.mixer.Channel(0), pygame.mixer.Channel(1),
                 pygame.mixer.Channel(2), pygame.mixer.Channel(3)]
+
+    pots = [MCP3008(0)], MCP3008(1), MCP3008(2), MCP3008(3)]
 
     
     #sounds dictionary
@@ -75,9 +78,10 @@ class mix:
                 self.channels[channel_number].play(self.sounds[sound_code])            
 
 
-    def update_channel_volume(self, channel_number, volume):
-        """sets the volume of a specific chanel"""     
-        self.channels[channel_number].set_volume(volume)
+    def update_channel_volume(self):
+        """sets the volume of a all chanells to values of pots"""  
+        for i in range(0,4):
+            self.channels[i].set_volume(pots[i].value)
             
             
     def cleanup(self):#need to use an exception handler!!!!! in driver

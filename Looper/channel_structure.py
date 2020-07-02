@@ -13,13 +13,12 @@ def read():
 
 def to_sound_code(resistor_value):
     """temporary helper"""
-    if round(resistor_value, 2) <= 5:
-        print("resistor value less than 5")
-        return "010"
-    
-    else:
-        print("resistor value read incorrectly. Value not between 0,1")
+    if resistor_value <= 5:
+        print("empty position, resistor value < 5")
         return "000"
+    
+    else if resistor_value < :
+        return "010"
 
 class channels:
     """multidimensional array representing channels and steps"""
@@ -30,12 +29,7 @@ class channels:
         self.num_steps = num_steps
         self.audio_file_struct = [["000" for i in range(0,num_steps)] for j in range(0,num_channels)]
         self.steps_resistance_values = []#holds current resistor values
-        self.pot_values = pot_values
-
-    def init_analog_inputs(self):
-        """setup potentiometer scanning objects"""
-        for i in range(0, 8):#will need change when MC3008 values no longer linear
-            self.pot_values.append(MCP3008(i))#[MCP3008[0],MCP3008[1], etc.]
+        
 
     def scan_tracks(self):
         """Fill the step-sequencer array depending on the
