@@ -95,7 +95,7 @@ def play_loop(instr):
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and (elapsed_time - hit_time) > 0.05):
+        if (hit == 1 and (elapsed_time - hit_time) > 0.1):
             play_region(instr,inst_state)  
             hit_time = elapsed_time
 
@@ -190,7 +190,7 @@ def record_loop(instr):
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and (elapsed_time - hit_time) > 0.05):
+        if (hit == 1 and (elapsed_time - hit_time) > 0.1):
             play_region(instr,inst_state)  
             hit_time = elapsed_time
 
@@ -251,7 +251,7 @@ def idle(instr):
             record_loop(looper)    
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and hit_elapse > 0.05):
+        if (hit == 1 and hit_elapse > 0.1):
             print(last)
             play_region(instr,last) 
             hit_wait = time.time() 
