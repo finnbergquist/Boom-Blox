@@ -126,6 +126,8 @@ def play_loop(instr):
 
 def record_loop(instr):
 
+    hit_time = 0
+
     #play metronome
     for x in range(4):
         play_region(instr, 4)
@@ -137,7 +139,6 @@ def record_loop(instr):
 
     #set last time and hit time
     last = -1
-    hit_time = 0
 
     #vartiables  for button and inst
     recording = 0
@@ -163,12 +164,12 @@ def record_loop(instr):
         floor_time = math.floor(elapsed_time * 4)
         #roll over if it goes over time
         if (floor_time >= float(length)):
-            #play metronome
+
             print(instrument_dict[inst_state])
             start_time = time.time()
             elapsed_time = raw_time - start_time
             floor_time = math.floor(elapsed_time)
-            hit_time = 0
+            hit_time = -0.1
 
 
         #read bus t
@@ -190,7 +191,7 @@ def record_loop(instr):
             play_region(instr, inst_state)
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and (elapsed_time - hit_time) > 0.1):
+        if (hit == 1 and (elapsed_time - hit_time) > 0.08):
             play_region(instr,inst_state)  
             hit_time = elapsed_time
 
