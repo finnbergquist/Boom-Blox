@@ -131,12 +131,14 @@ def record_loop(instr):
 def idle(instr):
     last = -1
     wait_time = time.time()
+    hit_wait = time.time()
     hit_time = 0
 
     while True:
 
         
         elapse = time.time() - wait_time
+        hit_elapse = time.time() - hit_wait
         #settig up channel data    
         #read bus t
         output = readBus()
@@ -159,9 +161,10 @@ def idle(instr):
             record_loop(looper)    
 
         #if its high, play snare, wait a little before checking again
-        if (hit == 1 and (elapse - hit_time) > 0.1):
-            play_region(instr,last)  
-            hit_time = elapse
+        if (hit == 1 and hit_elapse > 0.1):
+            print(last)
+            play_region(instr,last) 
+            hit_wait = time.time() 
 
 
 
