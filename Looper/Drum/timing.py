@@ -145,6 +145,7 @@ def idle(instr):
         output = readBus()
         # #set vars
         hit = output[0]
+        print(hit)
         inst = output[1] - 1 
         recording = output[2]
         play = output[3]
