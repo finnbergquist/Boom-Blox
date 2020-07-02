@@ -123,7 +123,12 @@ def play_loop(instr):
             if (closed_hat[last] == 1):
                 play_region(looper, 3)
 
-# def record_loop(instr):
+def record_loop(instr):
+    play_region(inst, 4)
+    time.sleep(3)
+    idle(instr)
+
+
 
 
 def idle(instr):
@@ -145,11 +150,14 @@ def idle(instr):
         if (inst != last and (elapse > .1)):
                 wait_time = time.time()
                 last = inst              
-                play_region(looper, inst)
+                play_region(instr, inst)
 
         #if play is triggered start loop on sequencer
         if (play == 1 and elapse > 0.5):
-            wait_time = play_loop(looper)
+            wait_time = play_loop(instr)
+        
+        elif (recording == 1):
+            record_loop(looper)
 
 
     
@@ -180,6 +188,7 @@ looper.set_loop(0, '300')
 looper.set_loop(1, '100')
 looper.set_loop(2, '400')
 looper.set_loop(3, '200')
+looper.set_loop(4, '500')
 #for inst check
 
 idle(looper)

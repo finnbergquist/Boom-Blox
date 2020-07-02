@@ -10,7 +10,8 @@ class mix:
     
     #initialize channels in the mixer
     channels = [pygame.mixer.Channel(0), pygame.mixer.Channel(1),
-                pygame.mixer.Channel(2), pygame.mixer.Channel(3)]
+                pygame.mixer.Channel(2), pygame.mixer.Channel(3), 
+                pygame.mixer.Channel(4)]
 
     
     #sounds dictionary
