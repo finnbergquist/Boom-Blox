@@ -52,7 +52,7 @@ def play_loop(instr):
     #important for first instr hit and noise checking   
     play_time = time.time()
     inst_state = 0
-    last_state = 0
+    last_state = readBus()[1] - 1
 
     while True:
                
