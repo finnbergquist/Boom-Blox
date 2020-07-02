@@ -117,6 +117,8 @@ def play_loop(instr):
 
             if (kick[last] == 1):
                 play_region(looper, 0)
+            if (open_hat[last] == 1):
+                play_region(looper, 1)  
             if (snare[last] == 1):
                  play_region(looper, 2)
             if (closed_hat[last] == 1):
@@ -124,7 +126,11 @@ def play_loop(instr):
 
 def record_loop(instr):
 
-    
+    #play metronome
+    for x in range(4):
+        play_region(instr, 4)
+        time.sleep(0.5)
+
     #initial time
     start_time = time.time()
     length = 16   
@@ -142,7 +148,9 @@ def record_loop(instr):
     inst_state = 0
     last_state = 0
 
-    #play metronome
+
+
+    #empty the array we are working with 
     empty(instrument_dict[inst_state]) 
 
     while True:
@@ -197,12 +205,16 @@ def record_loop(instr):
             play_region(instr, 4)
             last = floor_time
            
-            # if (kick[last] == 1):
-            #     play_region(looper, 0)
-            # if (snare[last] == 1):
-            #      play_region(looper, 2)
-            # if (closed_hat[last] == 1):
-            #     play_region(looper, 3)
+           #if any of the hits are true, hit em 
+            if (kick[last] == 1):
+                play_region(looper, 0)
+            if (open_hat[last] == 1):
+                play_region(looper, 1)  
+            if (snare[last] == 1):
+                 play_region(looper, 2)
+            if (closed_hat[last] == 1):
+                play_region(looper, 3)
+                
 
 def idle(instr):
     last = -1
@@ -256,16 +268,17 @@ looper = Looper(TEMPO, CHANNELS)#5 is the tempo, 2 channels, 8 steps
 mixer = mix()
 mixer.update_channel_volume(0, 1.0)
 
-metro =      [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]
+
 kick =       [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
-closed_hat = [0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0]
+open_hat =   [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]
 snare =      [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]
+closed_hat = [0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0]
 empty_arr =  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
 instrument_dict = {0 : kick, 
-                    1 : snare,
-                    2 : closed_hat,
-                    3 : metro } 
+                    1 : open_hat,
+                    2 : snare,
+                    3 : closed_hat} 
 
 #set loops, THIS IS FUCKING WEIRD 
 looper.set_loop(0, '500')
