@@ -39,7 +39,7 @@ def start_loop(instr):
     #set sequences
     metro =      [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]
     kick =       [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
-    closed_hat = [1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0]
+    closed_hat = [0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0]
     snare =      [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]
     empty_arr =  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
@@ -113,10 +113,10 @@ def start_loop(instr):
             play_region(instr,inst_state)  
             hit_time = elapsed_time
 
-            #if we are recording, clear array and add to it 
-            if (recording == 1):                   
-                if round(hit_time * 4) != length:
-                    instrument_dict[inst_state][round(hit_time * 4)] = 1
+            # #if we are recording, clear array and add to it 
+            # if (recording == 1):                   
+            #     if round(hit_time * 4) != length:
+            #         instrument_dict[inst_state][round(hit_time * 4)] = 1
             
 
 
