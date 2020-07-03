@@ -6,7 +6,7 @@
 import time
 import smbus2
 # from gpiozero import MCP3008, PWMLED
-from drum_files import mix 
+from perc_files import mix 
 from looper import Looper
 import math
 
