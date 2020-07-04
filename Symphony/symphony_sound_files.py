@@ -1,7 +1,6 @@
 import pygame
 from pygame import mixer
 from gpiozero import MCP3008
-GPIO.setmode(GPIO.BOARD)
 
 
 class mix:
