@@ -1,4 +1,3 @@
-from gpiozero import MCP3008
 import smbus2
 
 #initializing i2c protocall
