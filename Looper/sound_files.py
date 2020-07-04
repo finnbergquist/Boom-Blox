@@ -81,7 +81,7 @@ class mix:
     def update_channel_volume(self):
         """sets the volume of a all chanells to values of pots"""  
         for i in range(0,4):
-            self.channels[i].set_volume(pots[i].value)
+            self.channels[i].set_volume(self.pots[i].value)
             
             
     def cleanup(self):#need to use an exception handler!!!!! in driver
