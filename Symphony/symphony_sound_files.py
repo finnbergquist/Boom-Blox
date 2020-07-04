@@ -1,6 +1,8 @@
 import pygame
 from pygame import mixer
 from gpiozero import MCP3008
+GPIO.setmode(GPIO.BOARD)
+
 
 class mix:
     pygame.mixer.pre_init(22050, -16, 2, 256)#22050=default frequecy,-16=size(16 signed bits per audio sample
