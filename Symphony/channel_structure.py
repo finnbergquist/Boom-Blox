@@ -15,13 +15,13 @@ def to_sound_code(resistor_value):
     if resistor_value <= 5:
         return "000"
     
-    else if 5 < resistor_value <= 18 :#16barsharp
+    elif 5 < resistor_value <= 18 :#16barsharp
         return "800"
-    else if 18 < resistor_value <= 30 :#8bars
+    elif 18 < resistor_value <= 30 :#8bars
         return "400"
-    else if 30 < resistor_value <= 100 :#8bars
+    elif 30 < resistor_value <= 100 :#8bars
         return "410"
-    else if 100 < resistor_value <= 150:
+    elif 100 < resistor_value <= 150:
         return "210"#crash
     else:
         return "200"#chimes
