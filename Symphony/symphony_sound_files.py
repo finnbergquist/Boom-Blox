@@ -88,3 +88,4 @@ class mix:
     def cleanup(self):#need to use an exception handler!!!!! in driver
         """called at end of driver"""
         pygame.quit()
+        gpiozero.close()
