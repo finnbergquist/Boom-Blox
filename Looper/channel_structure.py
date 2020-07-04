@@ -17,8 +17,9 @@ def to_sound_code(resistor_value):
         print("empty position, resistor value < 5")
         return "000"
     
-    else if resistor_value < :
+    else :
         return "010"
+        print(resistor_value)
 
 class channels:
     """multidimensional array representing channels and steps"""
