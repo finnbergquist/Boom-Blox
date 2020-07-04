@@ -1,7 +1,7 @@
 """Audio Looper driver method"""
 import time
 from channel_structure import channels
-from sound_files import mix
+from symphony_sound_files import mix
 import time
 import sys
 import signal
