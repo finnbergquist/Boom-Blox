@@ -17,14 +17,14 @@ def to_sound_code(resistor_value):
     
     elif 5 < resistor_value <= 18 :#16barsharp
         return "800"
-    elif 18 < resistor_value <= 30 :#8bars
+    elif 18 < resistor_value <= 30 :#chimes
         return "400"
     elif 30 < resistor_value <= 100 :#8bars
-        return "410"
+        return "200"
     elif 100 < resistor_value <= 150:
         return "210"#crash
     else:
-        return "200"#chimes
+        return "410"#4barspiano
     
 
 class channels:
