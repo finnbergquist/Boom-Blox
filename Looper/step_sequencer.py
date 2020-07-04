@@ -48,7 +48,7 @@ class step_sequencer:
                 if (step/40).is_integer():#very fast way to test(i think)
                     self.play_region(int(step/40))#plays audio files at steps 0,1,2,3,4,5,6,7
                     self.channel_structure.scan_tracks()
-                #mixer.update_channel_volume()
+                mixer.update_channel_volume()
 #                     
                 next_time += 0.1
 
