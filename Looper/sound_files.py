@@ -13,7 +13,7 @@ class mix:
     channels = [pygame.mixer.Channel(0), pygame.mixer.Channel(1),
                 pygame.mixer.Channel(2), pygame.mixer.Channel(3)]
 
-    pots = [MCP3008(0)], MCP3008(1), MCP3008(2), MCP3008(3)]
+    pots = [MCP3008(0), MCP3008(1), MCP3008(2), MCP3008(3)]
 
     
     #sounds dictionary
