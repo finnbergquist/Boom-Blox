@@ -40,8 +40,6 @@ class step_sequencer:
         the next step in the sequence every 2 seconds. Loops after 8 steps"""    
         step = -1
         next_time = time.time()
-        # mixer.update_channel_volume(0, pot0.value)#setup the channel volumes before audio playback
-        # mixer.update_channel_volume(1, pot1.value)
         while True:#audio loop
             if time.time() >= next_time:
                 step = (step + 1) % 80

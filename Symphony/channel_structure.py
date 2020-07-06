@@ -44,7 +44,6 @@ class channels:
         self.steps_resistance_values = read()#i hope this works
 
         for j in range(0, self.num_channels):
-            print("entering j loop")
             for i in range(0, self.num_steps):#assigning sound_codes based on resistance value in the steps
                 self.audio_file_struct[j][i] = to_sound_code(self.steps_resistance_values[i + (self.num_steps*j)])#only doing this in first channel(for now!!)
                 #print(round(self.steps_resistance_values[i + (4*j)].value, 2))
