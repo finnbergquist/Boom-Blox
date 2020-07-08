@@ -33,7 +33,7 @@ class channels:
     def scan_tracks(self):
         """Fill the step-sequencer array depending on the
         the values yielded by node resistor inputs"""
-        self.steps_resistance_values = self.bus.read_i2c_block_data(arduino_address0, 0, 16)#i hope this works
+        self.steps_resistance_values = self.bus.read_i2c_block_data(self.arduino_address0, 0, 16)#i hope this works
 
         for j in range(0, self.num_channels):
             for i in range(0, self.num_steps):#assigning sound_codes based on resistance value in the steps

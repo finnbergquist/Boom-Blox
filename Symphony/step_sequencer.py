@@ -46,7 +46,7 @@ class step_sequencer:
                 if (step/20).is_integer():#very fast way to test(i think)
                     self.play_region(int(step/20))#plays audio files at steps 0,1,2,3,4,5,6,7
                     self.channel_structure.scan_tracks()
-                mixer.update_channel_volume()                     
+                self.mixer.update_channel_volume()                     
                 next_time += 0.1
 
 
@@ -59,8 +59,8 @@ def signal_handler(self, frame):
 
 
 
-
+"""
 signal.signal(signal.SIGINT, signal_handler)
 mixer = mix()
 stepSequencer = step_sequencer(mixer)
-stepSequencer.step_sequencer_loop()
+stepSequencer.step_sequencer_loop()"""

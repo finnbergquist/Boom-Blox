@@ -1,5 +1,5 @@
 from symphony_sound_files import mix
-from step_sequencer import stepSequencer
+from step_sequencer import step_sequencer
 import RPi.GPIO as GPIO
 import smbus2
 import time
@@ -30,6 +30,4 @@ def play_step_sequencer():
 GPIO.add_event_detect(4, GPIO.RISING, callback=play_step_sequencer, bouncetime=250)
 
 
-
-while True:
-    time.sleep(0.1)#keep idle for event triggers. Not sure if this is needed
+play_step_sequencer()
