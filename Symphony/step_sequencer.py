@@ -13,9 +13,9 @@ using the methods in that class(ex: ). This class also has a loop method, that p
 from the channel_structure objects, using methods in the sound_files class"""
 class step_sequencer:
 
-    def __init__(self, mixer):#mixer is global variable, so it can be accessed everywhere
+    def __init__(self, mixer, bus):#mixer is global variable, so it can be accessed everywhere
         self.mixer = mixer
-        self.channel_structure = channels(120, 4, 4)#2 channels, 4 steps, bpm not implememted yet!!!
+        self.channel_structure = channels(120, 4, 4, bus)#2 channels, 4 steps, bpm not implememted yet!!!
 
         #use this code when hooked up to pi!!!!
         #self.channel_structure.init_analog_inputs()
@@ -56,6 +56,8 @@ def signal_handler(self, frame):
     mixer.cleanup()
     print("mixer cleaned up")
     print(sys.exit())
+
+
 
 
 signal.signal(signal.SIGINT, signal_handler)

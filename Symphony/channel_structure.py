@@ -1,13 +1,7 @@
 import smbus2
 
-#initializing i2c protocall
-bus = smbus2.SMBus(1)
-arduino_address = 0x04
 
-def read():
-    """returns 16 bytes in an array for, each byte corresponding to an analog input from arduino mega"""
-    input = bus.read_i2c_block_data(arduino_address, 0, 16)
-    return input
+
 
 
 def to_sound_code(resistor_value):
@@ -30,18 +24,19 @@ def to_sound_code(resistor_value):
 class channels:
     """multidimensional array representing channels and steps"""
 
-    def __init__(self, tempo,num_channels,num_steps):
+    def __init__(self, tempo,num_channels,num_steps, bus):
         self.tempo = tempo #none of these are really implemented yet
         self.num_channels = num_channels
         self.num_steps = num_steps
         self.audio_file_struct = [["000" for i in range(0,num_steps)] for j in range(0,num_channels)]
         self.steps_resistance_values = []#holds current resistor values
-        
+        self.bus = bus#i2c bus, initialized in driver
+        self.arduino_address0 = 0x04
 
     def scan_tracks(self):
         """Fill the step-sequencer array depending on the
         the values yielded by node resistor inputs"""
-        self.steps_resistance_values = read()#i hope this works
+        self.steps_resistance_values = self.bus.read_i2c_block_data(arduino_address0, 0, 16)#i hope this works
 
         for j in range(0, self.num_channels):
             for i in range(0, self.num_steps):#assigning sound_codes based on resistance value in the steps
