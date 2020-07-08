@@ -1,9 +1,6 @@
 import smbus2
 
 
-
-
-
 def to_sound_code(resistor_value):
     """temporary helper"""
     if resistor_value <= 5:
