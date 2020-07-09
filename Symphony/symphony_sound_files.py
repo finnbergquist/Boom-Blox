@@ -33,32 +33,13 @@ class mix:
         "210" : pygame.mixer.Sound("Audio_Files/2barscrash.wav"),
         "400" : pygame.mixer.Sound("Audio_Files/4barsguitar.wav"),
         "410" : pygame.mixer.Sound("Audio_Files/4barspiano.wav"),
-        "800" : pygame.mixer.Sound("Audio_Files/8barsharp.wav")
-        
-        
+        "800" : pygame.mixer.Sound("Audio_Files/8barsharp.wav")        
     }
 
-    #this play should be used in looper lounge
-    def play(self, sound_code, channel_number): 
-            """Play arg1 sound in arg2 channel           
-            ex) mix.play(1, 0) will play sound 1 in channel 0"""
-            #make code readable by dict
-            
-            code = "'" + sound_code + "'"
-            if (code in self.sounds):#there is no audio file in this position, so do nothing
-                print("sound not in dictionary")
-            else:#play specified sound in specified channel
-                # print(type(code))
-                # print(self.sounds.get(code))
-                self.channels[channel_number].play(self.sounds[sound_code])
 
     #this play method should used in the step sequencer
     def play_step(self, sound_code, channel_number): 
-            """Play sound_code sound in channel_number channel           
-            ex) mix.play(1, 0) will play sound 1 in channel 0"""
-            #make code readable by dict
-            
-            code = "'" + sound_code + "'"
+            """Play sound at certain step in specified channel"""           
             if sound_code == '000':
                 return
             else:#play specified sound in specified channel

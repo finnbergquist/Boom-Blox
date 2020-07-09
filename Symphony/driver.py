@@ -27,6 +27,10 @@ def play_step_sequencer():
     #trigger lights and other haptics
     stepSequencer.step_sequencer_loop()
 
+def load_new_sound():
+    """reads resistance value of node in loading dock, and assigns
+    an audio file to that node, basedf on selection from potentiometer"""
+
 GPIO.add_event_detect(4, GPIO.RISING, callback=play_step_sequencer, bouncetime=250)
 
 
