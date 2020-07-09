@@ -8,7 +8,7 @@ class mix:
     pygame.mixer.init()                      #2-->stereo sound, 512=buffersize
     pygame.init()
     #set volume 
-    pygame.mixer.music.set_volume(1.0)
+    #pygame.mixer.music.set_volume(1.0)
     
     #initialize channels in the mixer
     channels = [pygame.mixer.Channel(0), pygame.mixer.Channel(1),
@@ -18,22 +18,24 @@ class mix:
 
     
     #sounds dictionary
-    # Accessing sounds: 
-#     each combination will have a 3-digit code. That code comes from
-#     the MIDI, effect and inst inputs. Each of those resistor values
-#     will be sorted into a single digit value from 0-10 with the sort 
-#     function. Then they will be concatanated into a 3-digit code. 
-#     000 representing the default. There will be a dictionary with 
+    # Accessing sounds:  
 #     these codes that will inform the Raspi which .wav to play.
 
 #       First digit is length, then sound (change!), then effect.
 
-    sounds = {
-        "200" : pygame.mixer.Sound("Audio_Files/2barschimes.wav"),
-        "210" : pygame.mixer.Sound("Audio_Files/2barscrash.wav"),
-        "400" : pygame.mixer.Sound("Audio_Files/4barsguitar.wav"),
-        "410" : pygame.mixer.Sound("Audio_Files/4barspiano.wav"),
-        "800" : pygame.mixer.Sound("Audio_Files/8barsharp.wav")        
+    
+    sound_files = [pygame.mixer.Sound("Audio_Files/2barschimes.wav"),
+                   pygame.mixer.Sound("Audio_Files/2barscrash.wav"),
+                   pygame.mixer.Sound("Audio_Files/4barsguitar.wav"),
+                   pygame.mixer.Sound("Audio_Files/4barspiano.wav"),
+                   pygame.mixer.Sound("Audio_Files/8barsharp.wav")]
+    
+    sound_assignments = {
+        "200" : sound_files[0],
+        "210" : sound_files[1],
+        "400" : sound_files[2],
+        "410" : sound_files[3],
+        "800" : sound_files[4]        
     }
 
 
@@ -45,7 +47,7 @@ class mix:
             else:#play specified sound in specified channel
                 # print(type(code))
                 # print(self.sounds.get(code))
-                self.channels[channel_number].play(self.sounds[sound_code])            
+                self.channels[channel_number].play(self.sound_assignments[sound_code])            
 
 
     def update_channel_volume(self):
@@ -53,6 +55,9 @@ class mix:
         for i in range(0,4):
             self.channels[i].set_volume(self.pots[i].value)
             
+    def reassign_sound(self, sound_code, sound_number):
+        """reassigning process done in the sample loading dock"""
+        self.sound_assignments.update({sound_code: sound_files[sound_number]})
             
     def cleanup(self):#need to use an exception handler!!!!! in driver
         """called at end of driver"""

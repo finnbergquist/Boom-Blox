@@ -5,6 +5,7 @@ import smbus2
 import time
 import os
 import signal
+import sys
 
 #setting up buttons
 GPIO.setmode(GPIO.BCM)#normal gpio sumbering system
@@ -25,18 +26,16 @@ stepSequencer = step_sequencer(mixer, bus)
 #create events for activating either sample dock or step_sequencer
 #find a way for another button press to send a sigint, and then clean up mixer
 
-def play_step_sequencer():
+def play_step_sequencer(channel):
     """triggered by button press event"""
     #trigger lights and other haptics
     stepSequencer.step_sequencer_loop()
 
-def end_step_sequencer():
-    """kills step sequencer thread"""
-    os.kill(p.pid,signal.SIGINT)
 
-def signal_handler(frame):
-    mixer.cleanup()
-    print("mixer cleaned up")
+def end_step_sequencer(channel):
+    """kills step sequencer thread"""
+    print("end loop")
+    stepSequencer.stop_step_sequencer()
 
 
 def load_new_sound():
@@ -44,8 +43,11 @@ def load_new_sound():
     an audio file to that node, basedf on selection from potentiometer"""
 
 GPIO.add_event_detect(17, GPIO.RISING, callback=play_step_sequencer, bouncetime=250)
-GPIO.add_event_detect(27, GPIO.RISING, callback=end_step_sequencer, bouncetime=250)
-signal.signal(signal.SIGINT, signal_handler)
+#GPIO.add_event_detect(27, GPIO.RISING, callback=end_step_sequencer, bouncetime=250)
 
+
+
+while True:
+    time.sleep(0.2)
 
 #play_step_sequencer()

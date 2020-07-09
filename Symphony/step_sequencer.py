@@ -5,6 +5,8 @@ from symphony_sound_files import mix
 import time
 import sys
 import signal
+import RPi.GPIO as GPIO
+
 
 
 """The step_sequencer class holds all the information about the sequencer region of this device.
@@ -16,6 +18,7 @@ class step_sequencer:
     def __init__(self, mixer, bus):#mixer is global variable, so it can be accessed everywhere
         self.mixer = mixer
         self.channel_structure = channels(120, 4, 4, bus)#2 channels, 4 steps, bpm not implememted yet!!!
+        self.status = False#whe initialized, should not be laying yet
 
         #use this code when hooked up to pi!!!!
         #self.channel_structure.init_analog_inputs()
@@ -33,14 +36,19 @@ class step_sequencer:
         for i in range(0, self.channel_structure.num_channels):
             self.mixer.play_step(self.channel_structure.get_audio_num(i, step), i)
             print(self.channel_structure.get_audio_num(i, step))
-
-
+    
+    def end_loop(self,channel):
+        print("end loop")
+        self.status = False
+    
     def step_sequencer_loop(self):
         """Executable loop. It updates channel volumes on 0.1 second intervals, and plays
-        the next step in the sequence every 2 seconds. Loops after 8 steps"""    
+        the next step in the sequence every 2 seconds. Loops after 8 steps"""
+        GPIO.add_event_detect(27, GPIO.RISING, callback=self.end_loop, bouncetime=250)
+        self.status = True
         step = -1
         next_time = time.time()
-        while True:#audio loop
+        while self.status == True:
             if time.time() >= next_time:
                 step = (step + 1) % 80
                 if (step/20).is_integer():#very fast way to test(i think)
@@ -51,8 +59,7 @@ class step_sequencer:
 
 
 
-
-def signal_handler(self, frame):
+def signal_handler(self, channel):
     mixer.cleanup()
     print("mixer cleaned up")
     print(sys.exit())
