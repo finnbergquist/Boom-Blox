@@ -29,13 +29,13 @@ stepSequencer = step_sequencer(mixer, bus)
 def play_step_sequencer(channel):
     """triggered by button press event"""
     #trigger lights and other haptics
-    stepSequencer.play_step_sequence()
+    while True:
+        stepSequencer.play_step_sequence()
 
 
 def end_step_sequencer(channel):
     """kills step sequencer thread"""
     print("end loop")
-    stepSequencer.stop_step_sequencer()
 
 
 def load_new_sound():
@@ -45,11 +45,11 @@ def load_new_sound():
     mixer.reassign_sound()
 
 GPIO.add_event_detect(17, GPIO.RISING, callback=play_step_sequencer, bouncetime=250)
-#GPIO.add_event_detect(27, GPIO.RISING, callback=end_step_sequencer, bouncetime=250)
+GPIO.add_event_detect(27, GPIO.RISING, callback=end_step_sequencer, bouncetime=250)
 
 
 
 while True:
-    time.sleep(0.2)
+    time.sleep(0.1)
 
 #play_step_sequencer()

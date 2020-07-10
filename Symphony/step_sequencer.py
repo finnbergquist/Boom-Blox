@@ -40,18 +40,18 @@ class step_sequencer:
         """Executable loop. It updates channel volumes on 0.1 second intervals, and plays
         the next step in the sequence every 2 seconds. Loops after 8 steps"""
         #GPIO.add_event_detect(27, GPIO.RISING, callback=self.end_loop, bouncetime=250)
-        step = -1
+        step = 0
+        steps = [0, 20, 40, 60]#step xounts to play samples at
         next_time = time.time()
-        while True:
+        while step <= 80:
             if time.time() >= next_time:
-                step = (step + 1) % 80
-                if (step/20).is_integer():#very fast way to test(i think)
-                    self.play_region(int(step/20))#plays audio files at steps 0,1,2,3,4,5,6,7
+                if step in steps:#very fast way to test(i think)
+                    self.play_region(int(step/20))#plays audio files at steps 0,1,2,3
                     self.channel_structure.scan_tracks()
-                self.mixer.update_channel_volume()                     
+                self.mixer.update_channel_volume()
+                step = (step + 1)
                 next_time += 0.1
-                if step == 79:
-                    return
+        return
 
 
 
@@ -65,4 +65,4 @@ def signal_handler(self, channel):
 """
 signal.signal(signal.SIGINT, signal_handler)
 mixer = mix()
-stepSequencer = step_sequencer(mixer)
+stepSequencer = step_sequencer(mixer)"""
