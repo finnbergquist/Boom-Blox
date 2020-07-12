@@ -6,6 +6,10 @@ def to_sound_code(resistor_value):
     if resistor_value <= 5:
         return "000"
     
+    else:
+        print(resistor_value)
+        return "200"
+    """
     elif 5 < resistor_value <= 18 :#16barsharp
         return "800"
     elif 18 < resistor_value <= 30 :#chimes
@@ -15,7 +19,7 @@ def to_sound_code(resistor_value):
     elif 100 < resistor_value <= 150:
         return "210"#crash
     else:
-        return "410"#4barspiano
+        return "410"#4barspiano"""
     
 
 class channels:
