@@ -41,11 +41,13 @@ def end_step_sequencer(channel):
 def load_new_sound():
     """reads resistance value of node in loading dock, and assigns
     an audio file to that node, basedf on selection from potentiometer"""
-    resistance_value = bus.read_byte(0x03)
+    arduino_input = bus.read_i2c_block_data(0x03, 0, 2)#reading 2 bytes, first is resistor value, second is rotary encoder value
+    resistor_value = arduino_input[0]
+    rotary_encoding = arduino_input[1]
     mixer.reassign_sound()
 
 GPIO.add_event_detect(17, GPIO.RISING, callback=play_step_sequencer, bouncetime=250)
-GPIO.add_event_detect(27, GPIO.RISING, callback=end_step_sequencer, bouncetime=250)
+GPIO.add_event_detect(27, GPIO.RISING, callback=load_new_sound, bouncetime=250)
 
 
 
