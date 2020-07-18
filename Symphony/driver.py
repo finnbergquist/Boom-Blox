@@ -1,5 +1,6 @@
 from symphony_sound_files import mix
 from step_sequencer import step_sequencer
+from channel_structure import to_sound_code
 import RPi.GPIO as GPIO
 import smbus2
 import time
@@ -44,7 +45,7 @@ def load_new_sound():
     arduino_input = bus.read_i2c_block_data(0x03, 0, 2)#reading 2 bytes, first is resistor value, second is rotary encoder value
     resistor_value = arduino_input[0]
     rotary_encoding = arduino_input[1]
-    mixer.reassign_sound()
+    mixer.reassign_sound(to_sound_code(resistor_value), rotary_encoding)
 
 GPIO.add_event_detect(17, GPIO.RISING, callback=play_step_sequencer, bouncetime=250)
 GPIO.add_event_detect(27, GPIO.RISING, callback=load_new_sound, bouncetime=250)
