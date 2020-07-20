@@ -3,6 +3,8 @@
 #define SEQUENCER_H
 
 #include <Arduino.h>
+#include <TimerOne.h>
+
 
 class Sequencer {
 
