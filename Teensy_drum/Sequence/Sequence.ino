@@ -7,9 +7,12 @@
 #include <SD.h>
 #include <SerialFlash.h>
 
+AudioPlaySdWav SD1;
+
+Drum_channel kick("KICK.WAV", 16, SD1);
+
 // GUItool: begin automatically generated code
 AudioPlaySdWav           playSdWav3;     //xy=157,475
-AudioPlaySdWav           playSdWav1;     //xy=165,133
 AudioPlaySdWav           playSdWav2;     //xy=167,364
 AudioMixer4              mixer3;         //xy=383,458
 AudioMixer4              mixer1;         //xy=385,251
@@ -19,9 +22,9 @@ AudioOutputI2S           i2s1;           //xy=822,363
 AudioConnection          patchCord1(playSdWav3, 0, mixer3, 0);
 AudioConnection          patchCord2(playSdWav3, 0, mixer2, 2);
 AudioConnection          patchCord3(playSdWav3, 1, mixer1, 2);
-AudioConnection          patchCord4(playSdWav1, 0, mixer1, 0);
-AudioConnection          patchCord5(playSdWav1, 1, mixer2, 0);
-AudioConnection          patchCord6(playSdWav1, 1, mixer3, 2);
+AudioConnection          patchCord4(kick.get_instr(), 0, mixer1, 0);
+AudioConnection          patchCord5(kick.get_instr(), 1, mixer2, 0);
+AudioConnection          patchCord6(kick.get_instr(), 1, mixer3, 2);
 AudioConnection          patchCord7(playSdWav2, 0, mixer1, 1);
 AudioConnection          patchCord8(playSdWav2, 1, mixer2, 1);
 AudioConnection          patchCord9(playSdWav2, 1, mixer3, 1);
@@ -40,7 +43,6 @@ Sequencer sequence(5,4);
 //starts with quarter notes, so 2 makes it eigth notes
 Clock new_clock(150,16, 2);
 //const char *inst = "KICK.WAV";
-Drum_channel kick("KICK.WAV", 16);
 Drum_channel snare("SNARE.WAV", 16);
 Drum_channel high_hat("HAT.WAV", 16);
 //
@@ -75,6 +77,7 @@ void setup(){
     kick.set(12, 1);
 
     high_hat.set(2, 1);
+    high_hat.set(4, 1);
     high_hat.set(8, 1);
     high_hat.set(10, 1);
 //    playSdWav1.play(trial.getSound());
@@ -85,20 +88,20 @@ void loop() {
     
 //    
 if (new_clock.change() == true) {
-        Serial.println(new_clock.getStep());
         
         if (kick.On(new_clock.getStep()) == 1) {      
-          playSdWav1.play(kick.getSound());      
+          kick.Trigger(); 
+          Serial.println(new_clock.getStep());
       }
         if (snare.On(new_clock.getStep()) == 1) {      
           playSdWav2.play(snare.getSound());
         
       }
-
-        if (high_hat.On(new_clock.getStep()) == 1) {      
-          playSdWav3.play(high_hat.getSound());
-        
-      }
+//
+//        if (high_hat.On(new_clock.getStep()) == 1) {      
+//          playSdWav3.play(high_hat.getSound());
+//        
+//      }
 }
   
 //
