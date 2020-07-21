@@ -1,21 +1,13 @@
 #include "Sequencer.h"
 
-Sequencer::Sequencer(int BPM, int Steps) {
-  this->BPM = BPM;
-  this->Steps = Steps;
-}
-int Sequencer::getBPM() {
-  return this->BPM;
+Sequencer::Sequencer(int num_channels, int Size) {
+  this->num_channels;
+  this->Size = Size;
 }
 
-int Sequencer::getSteps() {
-  return this->Steps;
-}
 
-int Sequencer::setBPM(int BPM) {
-  this->BPM = BPM;
-}
-
-int Sequencer::setSteps(int Steps) {
-  this->Steps = Steps;
-}
+//void Sequencer::Play(int Step) {
+//  
+//  if (inst.On(Step)) {
+//    inst.Play();
+//}
