@@ -7,6 +7,7 @@ class Clock {
     private: 
         int BPM;
         int Step;
+        int duration;
         int total_time;
         int max_steps;
         int init_time;
@@ -14,8 +15,8 @@ class Clock {
         int step_interval;
         
     public: 
-        Clock(int BPM, int max_steps);
-        int getTime();
+        Clock(int BPM, int max_steps, int note_duration);
+        int Check();
         int getBPM();
         int getStep();
         void start_clock();

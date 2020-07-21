@@ -1,12 +1,14 @@
 #include "Clock.h"
 
-Clock::Clock(int BPM, int max_steps) {
+Clock::Clock(int BPM, int max_steps, int note_duration) {
+    //BPM, loop length and note duration
     this->BPM = BPM;
     this->max_steps = max_steps;
+    this->duration = note_duration;
     this->Step = 0;
     //time is is millis
     this->init_time = millis();
-    this->step_interval = 60000 / BPM;
+    this->step_interval = (60000 / BPM) / duration;
     this->total_time = step_interval * max_steps;
 }
 
@@ -28,7 +30,7 @@ int Clock::getBPM() {
 
 int Clock::getStep() {
     //get the time and check if 
-    Step = this->getTime() / this->step_interval;
+    Step = this->Check() / this->step_interval;
     if (Step >= max_steps) {
       Step = 0;
       start_clock();
@@ -37,7 +39,7 @@ int Clock::getStep() {
     return Step;
 }
 
-int Clock::getTime() {
+int Clock::Check() {
   this->elapsed_time = millis() - init_time;
   return this->elapsed_time;
 }
