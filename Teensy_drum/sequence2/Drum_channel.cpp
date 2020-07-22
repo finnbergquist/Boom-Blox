@@ -1,10 +1,16 @@
 #include "Drum_channel.h"
 #include <Audio.h>
 
-Drum_channel::Drum_channel(const char *inst_name, int max_steps, AudioPlaySdWav *_source_) {
+Drum_channel::Drum_channel(const char *inst_name, int max_steps) {
     this->inst_name = inst_name;
     this->max_steps = max_steps;
-    *source_ = *_source_;
+
+
+}
+
+Drum_channel::Drum_channel() {
+    this->inst_name = NULL;
+    this->max_steps = 0;
 
 
 }
@@ -22,11 +28,6 @@ void Drum_channel::set(int index, int val) {
   this->steps[index] = val;
 }
 
-AudioPlaySdWav Drum_channel::getPath() {
-  return *source_;
-}
-
-void Drum_channel::Trigger() {
-  getPath().play(getSound());
-
-}
+//AudioPlaySdWav Drum_channel::getSource() {
+//  return *source_;
+//}
