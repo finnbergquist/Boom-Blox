@@ -28,6 +28,10 @@ void Drum_channel::set(int index, int val) {
   this->steps[index] = val;
 }
 
+int Drum_channel::get(int index) {
+  return steps[index];
+}
+
 //AudioPlaySdWav Drum_channel::getSource() {
 //  return *source_;
 //}

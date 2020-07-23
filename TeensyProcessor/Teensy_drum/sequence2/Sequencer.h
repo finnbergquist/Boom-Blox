@@ -27,9 +27,11 @@ class Sequencer {
     public: 
         Sequencer(int BPM, int max_steps, int note_duration, int num_channels);
         int Check();
+        int Check_init();
         int getBPM();
         int getChannels();
-        int getStep();       
+        int getStep();    
+        int closest_step();
         void start_clock();
         void pause_clock();
         void stop_clock();
