@@ -39,9 +39,10 @@ class Sequencer {
         void stop_clock();
         bool change();
         
-        bool inst_On(int inst);
+        bool inst_On(int index);
         const char* getSound(int inst);
-        void add_instrument(Drum_channel new_channel);
+        void add_instrument(const char *inst_name, int max_steps);
+        void set_instrument(int instrument, int index);
         Drum_channel get_instrument(int index);
         void set_instStep(int inst, int Step);
         

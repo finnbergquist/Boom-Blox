@@ -14,6 +14,10 @@ Sequencer::Sequencer(int BPM, int max_steps, int note_duration, int num_channels
     this->first=true;
     this->step_interval = (60000 / BPM) / duration;
     this->total_time = step_interval * max_steps;
+
+    for(int i = 0; i < num_channels; i++) {
+      channels[i] = Drum_channel();
+    }
 }
 
 void Sequencer::start_clock() {
@@ -80,9 +84,13 @@ bool Sequencer::change() {
 
 }
 
-void Sequencer::add_instrument(Drum_channel new_channel) {
-  channels[curr_channel] = new_channel;
+void Sequencer::add_instrument(const char *inst_name, int max_steps) {
+  channels[curr_channel].Create(*inst_name, max_steps);
   curr_channel++;
+}
+
+void Sequencer::set_instrument(int instrument, int index) {
+  channels[instrument].set(index, 1);
 }
 
 Drum_channel Sequencer::get_instrument(int index) {
@@ -94,10 +102,10 @@ Drum_channel Sequencer::get_instrument(int index) {
 //}
 bool Sequencer::inst_On(int inst) {
   
-  return (get_instrument(inst).On(getStep()) == 1);
+  return (channels[inst].On(getStep()) == 1);
   
 }
 
 const char* Sequencer::getSound(int inst) {
-  return get_instrument(inst).getSound();
+  return channels[inst].getSound();
 }

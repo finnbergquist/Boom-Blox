@@ -54,12 +54,6 @@ struct listen_out {
   int inst;
   int Step;
 };
-//starts with quarter notes, so 2 makes it eigth notes
-
-Drum_channel kick("KICK.WAV", 16);
-Drum_channel snare("SNARE.WAV", 16);
-Drum_channel high_hat("HAT.WAV", 16);
-//Drum_channel trial("TRIAL.WAV", 16);
 
 //int kick_arr [32] = {1,0,0,0,0,0,0,0,
 //                     1,0,1,0,0,0,0,0,
@@ -97,24 +91,19 @@ void setup(){
         delay(500);
       }
     }
-//   
 
-//    int kick_arr [32] = {0,0,0,0,0,0,0,0,
-//                         0,0,0,0,0,0,0,0,
-//                         0,0,0,0,0,0,0,0,
-//                         0,0,0,0,0,0,0,0};
-//                    
-//    int snare_arr [32] = {0,0,0,0,0,0,0,0,
-//                          0,0,0,0,0,0,0,0,
-//                          0,0,0,0,0,0,0,0,
-//                          0,0,0,0,0,0,0,0};
-
-
-                          
-    kick.set_full(kick_arr);
-    snare.set_full(snare_arr);
-    sequence.add_instrument(kick);
-    sequence.add_instrument(snare);
+    
+                    
+//    kick.set_full(kick_arr);
+//    snare.set_full(snare_arr);
+    sequence.add_instrument("KICK.WAV", 16);
+    sequence.set_instrument(0, 0);
+    sequence.set_instrument(0, 4);
+    sequence.set_instrument(0, 8);
+    sequence.set_instrument(0, 12);
+//    sequence.clear_channel(0);
+    sequence.add_instrument("SNARE.WAV", 16);
+    
     sequence.start_clock();
 
     
@@ -122,8 +111,11 @@ void setup(){
 
 void loop() { 
  
+   Serial.println(sequence.get_instrument(0).On(0));
+   playSdWav3.play(sequence.get_instrument(0).getSound());
+   delay(500);
+//   Play(sequence);
 
-   Record(sequence, kick, snare);
   
 }
 
@@ -166,97 +158,98 @@ void Hear() {
     if (MIDI.read()) {
     parse_MIDI();
     if (type == midi::NoteOn) {
-      if (note == 0) {playSdWav1.play(kick.getSound());
+      if (note == 0) {playSdWav1.play(sequence.getSound(0));
                       Serial.println(sequence.getStep());}
       else if (note == 1){playSdWav2.play("SNARE.WAV");}
 //      else if (note == 2){playSdWav3.play("HAT.WAV");}
       }
     }
 }
-
-listen_out Listen(Sequencer sequence) {
-  listen_out out;
-  listen_out null_out = {-1, -1};
-  if (MIDI.read()) {
-    parse_MIDI();
-    if (type == midi::NoteOn) {
-      if (note == 0) {playSdWav1.play(kick.getSound());
-//                      Serial.println(sequence.getStep());
-                      out.inst = note;
-                      out.Step = sequence.closest_step();
-//                      Serial.println(out.Step);
-                      return out;
-      }
-      else if (note == 1){playSdWav2.play(snare.getSound());
-                      out.inst = note;
-                      out.Step = sequence.closest_step();
-                      return out;}
-      
-      else{return null_out;}
-    }
-    else {
-      return null_out;
-    }
-  }
-  else{return null_out;}
-  
-  
-}
-
-
-
-void Record(Sequencer sequence, Drum_channel drum, Drum_channel drum2) {
-    int changeStep = -1;
-    int currStep;
-    listen_out _listen;
-    metro(sequence);
-    sequence.stop_clock();
-    sequence.start_clock();
-    
-    
-    while(true) {
-         
-        //if sequence has changed or its the first time around     
-        if (sequence.change() == true) {
-          currStep = sequence.getStep();
-          //metronome
-          if (currStep % 8 == 0) {playSdWav4.play("METRO4.WAV");}
-          else if (currStep % 2 == 0) {playSdWav4.play("LOWMETRO.WAV");}
-          
-          Serial.println(currStep);
-          if (drum.steps[currStep] == 1 && currStep != changeStep){
-            playSdWav1.play(drum.getSound());
-          }
-  
-          else if (drum2.steps[currStep] == 1 && currStep != changeStep){
-            playSdWav3.play(drum2.getSound());
-          }
-  
-      }
-      //if Listen returns a number, make that on in the
-      _listen = Listen(sequence);
-        
-  //        Serial.println(_listen.Step);
-        if (_listen.inst != -1) {
-          changeStep = _listen.Step;
-//          delay();
-  //        Serial.println(_listen.Step);
-          if (_listen.inst == 0){drum.set(_listen.Step, 1);}
-          else if (_listen.inst == 1){drum2.set(_listen.Step, 1);}
-          
-        }
-//        else{if (abs(changeStep - currStep) > 1) {changeStep = -1;}}
-    }
-}
-
-
-
-void metro(Sequencer sequence) {
-  
-    playSdWav4.play("METRO4.WAV");
-    delay(sequence.getStep_interval() * 4);
-  for(int x = 0; x < 3; x++) {
-    playSdWav4.play("LOWMETRO.WAV");
-    delay(sequence.getStep_interval() * 4);
-  }
-}
+//
+//listen_out Listen(Sequencer sequence) {
+//  listen_out out;
+//  listen_out null_out = {-1, -1};
+//  if (MIDI.read()) {
+//    parse_MIDI();
+//    if (type == midi::NoteOn) {
+//      if (note == 0) {playSdWav1.play(kick.getSound());
+////                      Serial.println(sequence.getStep());
+//                      out.inst = note;
+//                      out.Step = sequence.closest_step();
+////                      Serial.println(out.Step);
+//                      return out;
+//      }
+//      else if (note == 1){playSdWav2.play(snare.getSound());
+//                      out.inst = note;
+//                      out.Step = sequence.closest_step();
+//                      return out;}
+//      
+//      else{return null_out;}
+//    }
+//    else {
+//      return null_out;
+//    }
+//  }
+//  else{return null_out;}
+//  
+//  
+//}
+//
+//
+//
+//void Record(Sequencer sequence, Drum_channel drum, Drum_channel drum2) {
+//    int changeStep = -1;
+//    int currStep;
+//    listen_out _listen;
+//    metro(sequence);
+//    sequence.stop_clock();
+//    sequence.start_clock();
+//    
+//    
+//    while(true) {
+//         
+//        //if sequence has changed or its the first time around     
+//        if (sequence.change() == true) {
+//          currStep = sequence.getStep();
+//          //metronome
+//          if (currStep % 8 == 0) {playSdWav4.play("METRO4.WAV");}
+//          else if (currStep % 2 == 0) {playSdWav4.play("LOWMETRO.WAV");}
+//          
+//          Serial.println(currStep);
+//          if (drum.steps[currStep] == 1 && currStep != changeStep){
+//            playSdWav1.play(drum.getSound());
+//          }
+//  
+//          else if (drum2.steps[currStep] == 1 && currStep != changeStep){
+//            playSdWav3.play(drum2.getSound());
+//          }
+//  
+//      }
+//      //if Listen returns a number, make that on in the
+//      _listen = Listen(sequence);
+//        
+//  //        Serial.println(_listen.Step);
+//        if (_listen.inst != -1) {
+//          changeStep = _listen.Step;
+////          delay();
+//  //        Serial.println(_listen.Step);
+//          if (_listen.inst == 0){drum.set(_listen.Step, 1);}
+//          else if (_listen.inst == 1){drum2.set(_listen.Step, 1);}
+//          
+//        }
+////        else{if (abs(changeStep - currStep) > 1) {changeStep = -1;}}
+//    }
+//}
+//
+//
+//
+//void metro(Sequencer sequence) {
+//  
+//    playSdWav4.play("METRO4.WAV");
+//    delay(sequence.getStep_interval() * 4);
+//  for(int x = 0; x < 3; x++) {
+//    playSdWav4.play("LOWMETRO.WAV");
+//    delay(sequence.getStep_interval() * 4);
+//  }
+//}
+//

@@ -12,7 +12,6 @@ class Sequencer {
         int init_time;
         int elapsed_time;      
         int duration; 
-        bool first;
         
         //BPM, steps
         int BPM;
@@ -22,7 +21,7 @@ class Sequencer {
 
         //Channels
         int num_channels;
-        Drum_channel channels [4];   
+        Drum_channel *channels [4];   
         int curr_channel;
         
     public: 
@@ -32,17 +31,15 @@ class Sequencer {
         int getBPM();
         int getChannels();
         int getStep();    
-        int getStep_interval() {return step_interval;}
         int closest_step();
         void start_clock();
         void pause_clock();
         void stop_clock();
         bool change();
-        
         bool inst_On(int inst);
         const char* getSound(int inst);
-        void add_instrument(Drum_channel new_channel);
-        Drum_channel get_instrument(int index);
+        void add_instrument(Drum_channel* new_channel);
+        Drum_channel* get_instrument(int index);
         void set_instStep(int inst, int Step);
         
 
