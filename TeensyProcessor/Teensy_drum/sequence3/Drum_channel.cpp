@@ -4,6 +4,7 @@
 Drum_channel::Drum_channel(const char *inst_name, int max_steps) {
     this->inst_name = inst_name;
     this->max_steps = max_steps;
+    this->steps = new int[max_steps];
 
 
 }
@@ -18,6 +19,7 @@ Drum_channel::Drum_channel() {
 void Drum_channel::Create(const char *inst_name, int max_steps) {
     this->inst_name = inst_name;
     this->max_steps = max_steps;
+    this->steps = new int[max_steps];
 }
 
 const char* Drum_channel::getSound() {

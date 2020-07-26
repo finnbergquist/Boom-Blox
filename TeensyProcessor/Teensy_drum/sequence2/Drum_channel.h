@@ -12,11 +12,14 @@ class Drum_channel {
     private:
         const char *inst_name;
         int max_steps;
+//        int steps [32];
+        //implement step pointer later
+        int *steps;
         
 
     public:
         
-        int steps [32];
+        
         Drum_channel(const char *inst_name, int max_steps);
         Drum_channel();
         const char* getSound();

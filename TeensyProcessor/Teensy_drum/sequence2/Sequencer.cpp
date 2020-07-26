@@ -14,6 +14,7 @@ Sequencer::Sequencer(int BPM, int max_steps, int note_duration, int num_channels
     this->first=true;
     this->step_interval = (60000 / BPM) / duration;
     this->total_time = step_interval * max_steps;
+    this->channels = new Drum_channel[num_channels];
 }
 
 void Sequencer::start_clock() {
@@ -80,8 +81,8 @@ bool Sequencer::change() {
 
 }
 
-void Sequencer::add_instrument(Drum_channel new_channel) {
-  channels[curr_channel] = new_channel;
+void Sequencer::add_instrument(Drum_channel* new_channel) {
+  channels[curr_channel] = *new_channel;
   curr_channel++;
 }
 

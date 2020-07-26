@@ -44,7 +44,7 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=394.00000762939453,228.00003051757
 #define SDCARD_SCK_PIN   14
 
 //Sequencer ins: BPM, size, note duration, num_channels, 
-Sequencer sequence(140, 32, 2, 2);
+Sequencer sequence(160, 32, 2, 2);
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
 int note, velocity, channel, d1, d2;
 byte type;
@@ -56,30 +56,30 @@ struct listen_out {
 };
 //starts with quarter notes, so 2 makes it eigth notes
 
-Drum_channel kick("KICK.WAV", 16);
-Drum_channel snare("SNARE.WAV", 16);
-Drum_channel high_hat("HAT.WAV", 16);
+Drum_channel kick("KICK.WAV", 32);
+Drum_channel snare("SNARE.WAV", 32);
+Drum_channel high_hat("HAT.WAV", 32);
 //Drum_channel trial("TRIAL.WAV", 16);
 
-//int kick_arr [32] = {1,0,0,0,0,0,0,0,
-//                     1,0,1,0,0,0,0,0,
-//                     1,0,0,0,0,0,0,0,
-//                     1,0,0,1,0,0,0,0};
-//                    
-//int snare_arr [32] = {0,0,0,0,1,0,0,0,
-//                      0,0,0,0,1,0,0,1,
-//                      0,0,0,0,1,0,0,0,
-//                      0,0,0,0,1,0,1,1};
-
-int kick_arr [32] = {0,0,0,0,0,0,0,0,
-                     0,0,0,0,0,0,0,0,
-                     0,0,0,0,0,0,0,0,
-                     0,0,0,0,0,0,0,0};
+int kick_arr [32] = {1,0,0,0,0,0,0,0,
+                     1,0,1,0,0,0,0,0,
+                     1,0,0,0,0,0,0,0,
+                     1,0,0,1,0,0,0,0};
                     
-int snare_arr [32] = {0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0};
+int snare_arr [32] = {0,0,0,0,1,0,0,0,
+                      0,0,0,0,1,0,0,1,
+                      0,0,0,0,1,0,0,0,
+                      0,0,0,0,1,0,1,1};
+
+//int kick_arr [32] = {0,0,0,0,0,0,0,0,
+//                     0,0,0,0,0,0,0,0,
+//                     0,0,0,0,0,0,0,0,
+//                     0,0,0,0,0,0,0,0};
+//                    
+//int snare_arr [32] = {0,0,0,0,0,0,0,0,
+//                      0,0,0,0,0,0,0,0,
+//                      0,0,0,0,0,0,0,0,
+//                      0,0,0,0,0,0,0,0};
 
                       
 void setup(){
@@ -97,33 +97,21 @@ void setup(){
         delay(500);
       }
     }
-//   
-
-//    int kick_arr [32] = {0,0,0,0,0,0,0,0,
-//                         0,0,0,0,0,0,0,0,
-//                         0,0,0,0,0,0,0,0,
-//                         0,0,0,0,0,0,0,0};
-//                    
-//    int snare_arr [32] = {0,0,0,0,0,0,0,0,
-//                          0,0,0,0,0,0,0,0,
-//                          0,0,0,0,0,0,0,0,
-//                          0,0,0,0,0,0,0,0};
 
 
-                          
+
     kick.set_full(kick_arr);
     snare.set_full(snare_arr);
-    sequence.add_instrument(kick);
-    sequence.add_instrument(snare);
+    sequence.add_instrument(&kick);
+    sequence.add_instrument(&snare);
     sequence.start_clock();
 
     
 }
 
 void loop() { 
- 
 
-   Record(sequence, kick, snare);
+   Record(sequence);
   
 }
 
@@ -166,10 +154,7 @@ void Hear() {
     if (MIDI.read()) {
     parse_MIDI();
     if (type == midi::NoteOn) {
-      if (note == 0) {playSdWav1.play(kick.getSound());
-                      Serial.println(sequence.getStep());}
-      else if (note == 1){playSdWav2.play("SNARE.WAV");}
-//      else if (note == 2){playSdWav3.play("HAT.WAV");}
+      playSdWav1.play(sequence.getSound(note));
       }
     }
 }
@@ -180,40 +165,28 @@ listen_out Listen(Sequencer sequence) {
   if (MIDI.read()) {
     parse_MIDI();
     if (type == midi::NoteOn) {
-      if (note == 0) {playSdWav1.play(kick.getSound());
-//                      Serial.println(sequence.getStep());
-                      out.inst = note;
-                      out.Step = sequence.closest_step();
-//                      Serial.println(out.Step);
-                      return out;
-      }
-      else if (note == 1){playSdWav2.play(snare.getSound());
-                      out.inst = note;
-                      out.Step = sequence.closest_step();
-                      return out;}
-      
-      else{return null_out;}
+      playSdWav1.play(sequence.getSound(note));
+      out.inst = note;
+      out.Step = sequence.closest_step();
+      return out;
     }
-    else {
-      return null_out;
-    }
+
   }
-  else{return null_out;}
   
+  return null_out; 
   
 }
 
 
 
-void Record(Sequencer sequence, Drum_channel drum, Drum_channel drum2) {
+void Record(Sequencer sequence) {
     int changeStep = -1;
     int currStep;
     listen_out _listen;
     metro(sequence);
     sequence.stop_clock();
     sequence.start_clock();
-    
-    
+       
     while(true) {
          
         //if sequence has changed or its the first time around     
@@ -224,28 +197,21 @@ void Record(Sequencer sequence, Drum_channel drum, Drum_channel drum2) {
           else if (currStep % 2 == 0) {playSdWav4.play("LOWMETRO.WAV");}
           
           Serial.println(currStep);
-          if (drum.steps[currStep] == 1 && currStep != changeStep){
-            playSdWav1.play(drum.getSound());
-          }
-  
-          else if (drum2.steps[currStep] == 1 && currStep != changeStep){
-            playSdWav3.play(drum2.getSound());
-          }
-  
+          for(int i=0; i<sequence.getChannels(); i++){
+            if (sequence.get_instrument(i).get(currStep) == 1 && currStep != changeStep){
+            playSdWav1.play(sequence.getSound(i));
+            }
+          } 
       }
+      
       //if Listen returns a number, make that on in the
       _listen = Listen(sequence);
         
-  //        Serial.println(_listen.Step);
         if (_listen.inst != -1) {
           changeStep = _listen.Step;
-//          delay();
-  //        Serial.println(_listen.Step);
-          if (_listen.inst == 0){drum.set(_listen.Step, 1);}
-          else if (_listen.inst == 1){drum2.set(_listen.Step, 1);}
-          
+          sequence.get_instrument(_listen.inst).set(_listen.Step, 1);          
         }
-//        else{if (abs(changeStep - currStep) > 1) {changeStep = -1;}}
+        else{if (abs(changeStep - currStep) > 2) {changeStep = -1;}}
     }
 }
 

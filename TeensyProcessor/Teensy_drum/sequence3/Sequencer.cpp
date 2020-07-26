@@ -14,7 +14,6 @@ Sequencer::Sequencer(int BPM, int max_steps, int note_duration, int num_channels
     this->first=true;
     this->step_interval = (60000 / BPM) / duration;
     this->total_time = step_interval * max_steps;
-
     for(int i = 0; i < num_channels; i++) {
       channels[i] = Drum_channel();
     }

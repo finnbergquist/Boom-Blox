@@ -22,7 +22,7 @@ class Sequencer {
 
         //Channels
         int num_channels;
-        Drum_channel channels [4];   
+        Drum_channel *channels;   
         int curr_channel;
         
     public: 
@@ -41,7 +41,7 @@ class Sequencer {
         
         bool inst_On(int inst);
         const char* getSound(int inst);
-        void add_instrument(Drum_channel new_channel);
+        void add_instrument(Drum_channel* new_channel);
         Drum_channel get_instrument(int index);
         void set_instStep(int inst, int Step);
         

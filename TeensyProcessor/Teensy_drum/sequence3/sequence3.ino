@@ -112,7 +112,7 @@ void setup(){
 void loop() { 
  
    Serial.println(sequence.get_instrument(0).On(0));
-   playSdWav3.play(sequence.get_instrument(0).getSound());
+   playSdWav3.play("KICK.WAV");
    delay(500);
 //   Play(sequence);
 
